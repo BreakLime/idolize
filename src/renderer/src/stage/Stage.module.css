@@ -1,0 +1,237 @@
+/* the stage fills Now Playing behind its header and content; nothing on it takes clicks */
+.stage {
+  --kick: 0;
+  --tension: 0;
+  --stage-light: rgb(255, 255, 255);
+  --stage-glow: rgba(255, 255, 255, 0.6);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  animation: stage-in 0.6s var(--ease-out);
+}
+@keyframes stage-in {
+  from {
+    opacity: 0;
+  }
+}
+/* night falls over the player background (still showing through with Transparent / Acrylic); once the canvas draws,
+   it brings its own (with the idol cut out of it) */
+.night {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 45%, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.92));
+}
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* the idol performing up in the top left, just where and as big as the sidebar's idol (24px): drawn by the canvas as a
+   hole through the stage (shaders.ts), this figure only moves (logoDance.ts sets its pose, the canvas follows it);
+   without the canvas, a black silhouette back-lit in the album's light */
+.performer {
+  position: absolute;
+  left: 24px;
+  top: 18px;
+  width: 24px;
+  height: 24px;
+  color: rgb(6, 6, 8);
+  filter: drop-shadow(0 0 1px var(--stage-light)) drop-shadow(0 0 calc(4px + 5px * var(--kick)) var(--stage-glow));
+}
+.performer svg {
+  width: 100%;
+  height: 100%;
+}
+.stage[data-gl='on'] .night {
+  display: none;
+}
+.stage[data-gl='on'] .performer {
+  opacity: 0;
+  filter: none;
+}
+
+/* the current lyric line under the album, as wide as it (Stage.tsx places it: --lx, --ly, --lw) */
+.lyrics {
+  position: absolute;
+  left: var(--lx, 20%);
+  top: var(--ly, 80%);
+  width: var(--lw, 60%);
+  text-align: center;
+  opacity: 0;
+  transform: scale(calc(1 + var(--kick) * 0.03));
+  transform-origin: 50% 0;
+  transition: opacity 0.6s var(--ease-out);
+}
+.lyrics[data-on='true'] {
+  opacity: 1;
+}
+.line {
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(17px, 2.1vw, 30px);
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  text-shadow:
+    0 0 18px var(--stage-glow),
+    0 2px 30px rgba(0, 0, 0, 0.9);
+}
+.word {
+  display: inline-block;
+  margin: 0 0.16em;
+  opacity: 0;
+  animation: word-in 0.38s var(--ease-out) forwards;
+  animation-delay: var(--d);
+}
+@keyframes word-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em) scale(0.92);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+/* a drop hit while the line was up: its words fly apart */
+.line[data-burst] .word {
+  animation: word-burst 0.75s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+}
+@keyframes word-burst {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate(var(--bx), var(--by)) rotate(var(--br)) scale(1.7);
+    filter: blur(5px);
+  }
+}
+
+/* a comment from the song's crowd: a card beside the wall, floating up a little while it's read */
+.comment {
+  position: absolute;
+  padding: 12px 14px 10px;
+  border-radius: 14px;
+  background: rgba(8, 8, 12, 0.62);
+  border: 1px solid color-mix(in srgb, var(--stage-light) 30%, transparent);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    0 0 28px color-mix(in srgb, var(--stage-light) 18%, transparent);
+  color: #fff;
+  animation: comment-life var(--life) linear both;
+}
+.stage[data-paused] .comment {
+  animation-play-state: paused;
+}
+.commentSource {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.5);
+}
+.commentText {
+  margin: 0 0 8px;
+  font-size: 15px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.commentBy {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.commentWho {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.commentLikes {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+@keyframes comment-life {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(6px);
+  }
+  9% {
+    opacity: 1;
+    filter: none;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+}
+
+/* the drop jolts the whole window's content for a moment (applied to #root) */
+.jolt {
+  animation: jolt 0.42s steps(1, end) both;
+}
+@keyframes jolt {
+  0% {
+    transform: translate(4px, -3px);
+    filter: url(#stage-split);
+  }
+  14% {
+    transform: translate(-5px, 2px);
+  }
+  28% {
+    transform: translate(3px, 3px);
+    filter: url(#stage-split);
+  }
+  42% {
+    transform: translate(-2px, -2px);
+    filter: none;
+  }
+  60% {
+    transform: translate(1px, 1px);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+/* reduced motion: the lyrics and comments just fade, the words neither fly in nor burst */
+@media (prefers-reduced-motion: reduce) {
+  .comment {
+    animation-name: comment-fade;
+  }
+  .word,
+  .line[data-burst] .word {
+    opacity: 1;
+    animation: none;
+  }
+  .lyrics {
+    transform: none;
+  }
+}
+@keyframes comment-fade {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  9%,
+  88% {
+    opacity: 1;
+  }
+}

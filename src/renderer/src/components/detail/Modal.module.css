@@ -1,0 +1,49 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-dialog);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  app-region: no-drag;
+}
+.dialog {
+  width: 620px;
+  max-width: calc(100vw - 48px);
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+  padding: 24px;
+  color: rgb(228, 228, 231);
+  background: var(--c-dialog);
+  border: 0.667px solid var(--c-dialog-border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-pop);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 16px;
+}
+.title {
+  color: var(--c-text);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+.close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--r-pill);
+  color: var(--c-text);
+}
+.close:hover {
+  background: var(--c-fill-10);
+}

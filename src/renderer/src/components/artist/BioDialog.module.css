@@ -1,0 +1,81 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-dialog);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  app-region: no-drag;
+}
+.dialog {
+  display: flex;
+  flex-direction: column;
+  width: 620px;
+  max-width: calc(100vw - 48px);
+  max-height: calc(100vh - 136px);
+  padding: 24px;
+  color: rgb(228, 228, 231);
+  background: var(--c-dialog);
+  border: 0.667px solid var(--c-dialog-border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-pop);
+}
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 24px;
+}
+.close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--r-pill);
+  color: var(--c-text);
+}
+.close:hover {
+  background: var(--c-fill-10);
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.header {
+  display: flex;
+  gap: 16px;
+  padding-bottom: 12px;
+}
+.image {
+  flex: none;
+  width: 80px;
+  height: 80px;
+  border-radius: var(--r-pill);
+  background: var(--c-surface-3);
+  object-fit: cover;
+}
+.headerText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--c-text);
+}
+.sub {
+  color: var(--c-text-muted);
+}
+.body {
+  min-height: 0;
+  padding: 8px;
+  overflow-y: auto;
+  user-select: text;
+}
+.body p {
+  margin: 12px 0 0;
+  white-space: pre-line;
+}
+.body p:first-child {
+  margin-top: 12px;
+}

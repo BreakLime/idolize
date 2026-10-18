@@ -1,0 +1,100 @@
+/* page root: a stacking context so the hero (z-index -1) paints above main's background */
+.page {
+  position: relative;
+  z-index: 0;
+  min-height: 100%;
+}
+/* TIDAL module column: same page box as the header, 40px between modules */
+.modules,
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  box-sizing: content-box;
+  width: 1500px;
+  /* TIDAL: min(1500px, 92vw - sidebar - queue) = content width - 8vw */
+  max-width: calc(100% - 8vw);
+  margin: 0 auto;
+  padding: 20px;
+}
+.module {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+/* carousel scrollers bleed 6px below their section */
+.carousel > section > :last-child {
+  margin-bottom: -6px;
+}
+
+.social {
+  display: block;
+}
+.socialTitle {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+}
+.linksList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 12px 0;
+}
+.link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.linkText {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 22px;
+  border-radius: 6px;
+}
+.linkText:hover span {
+  text-decoration: underline;
+}
+
+/* view-all pages: page box with 20px gap, 32px title, auto-fill card grid */
+.viewAll {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: content-box;
+  width: 1500px;
+  max-width: calc(100% - 8vw);
+  margin: 0 auto;
+  padding: 20px;
+}
+.viewAllTitle {
+  min-height: 34px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 34px;
+  letter-spacing: -0.32px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+}
+.cell,
+.cellVideo,
+.cellArtist {
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 25 / 36;
+}
+.cellVideo {
+  aspect-ratio: 1 / 1;
+}
+.cellArtist {
+  aspect-ratio: 25 / 33;
+}
+.empty {
+  color: var(--c-text-2);
+}

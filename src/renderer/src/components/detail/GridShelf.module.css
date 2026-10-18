@@ -1,0 +1,218 @@
+.shelf {
+  min-width: 0;
+}
+.header {
+  display: flex;
+  align-items: flex-start;
+  min-height: 24px;
+  margin: 0 48px 16px;
+}
+/* TIDAL wraps a long shelf title ("More Albums by / Ninajirachi" at 700px) instead of cutting it off */
+.heading {
+  flex: 1;
+  min-width: 0;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  overflow-wrap: anywhere;
+}
+.headerRight {
+  display: flex;
+  justify-content: flex-end;
+}
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  border-radius: 50%;
+  color: var(--c-text-muted);
+  background: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s, opacity 0.2s;
+}
+.arrow:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+}
+.arrow:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.arrow + .arrow {
+  margin-right: 0;
+}
+.viewAll {
+  display: block;
+  min-width: 57px;
+  height: 24px;
+  margin-left: 8px;
+}
+.viewAll span {
+  color: var(--c-text-2);
+  font-weight: 600;
+  line-height: 22px;
+  transition: color 0.2s;
+}
+.viewAll:hover span {
+  color: var(--c-text);
+}
+.module {
+  margin: 0 20px 48px;
+  padding: 0 28px;
+}
+.scroll {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 24px;
+  margin-bottom: -14px;
+  padding-bottom: 14px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+.slot {
+  min-width: 0;
+  scroll-snap-align: start;
+}
+.cell {
+  position: relative;
+  display: grid;
+  align-items: start;
+  grid-template-rows: auto 34px 20px auto;
+  overflow: hidden;
+}
+.artistCell {
+  grid-template-rows: auto 34px 0;
+}
+.folderCell {
+  grid-template-rows: auto 34px 0 auto;
+}
+.coverWrap {
+  position: relative;
+}
+.cover {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+}
+.image {
+  width: 100% !important;
+  height: 100% !important;
+}
+.hover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 3px;
+  background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 100%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.artistCell .hover {
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+}
+.cover:hover .hover,
+.hoverOn {
+  opacity: 1;
+}
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 40px;
+  margin: 0 16px 16px;
+}
+.play,
+.playBig {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #000;
+  background: var(--c-text);
+  box-shadow: 0 2.2px 5.5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.15s;
+}
+.playBig {
+  width: 56px;
+  height: 56px;
+}
+.play:hover,
+.playBig:hover {
+  transform: scale(1.06);
+}
+.right {
+  display: flex;
+  gap: 8px;
+}
+.small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--c-text);
+  background: rgba(0, 0, 0, 0.5);
+}
+.small:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+.titleLink {
+  display: block;
+  height: 20px;
+  margin-top: 14px;
+}
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.artistCell .titleRow {
+  justify-content: center;
+}
+.title {
+  margin-right: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.titleLink:hover .title {
+  text-decoration: underline;
+}
+.desc {
+  display: block;
+  color: var(--c-text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.descLink:not(:last-child)::after {
+  content: ', ';
+}
+.meta {
+  display: flex;
+  gap: 8px;
+  margin-top: 3.5px;
+}
+.metaText {
+  display: block;
+  color: var(--c-text-muted);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}

@@ -1,0 +1,518 @@
+/* page frame (870px column centered in main) */
+/* TIDAL centers this column in the full main width (its scrollbar overlays the content);
+   ours takes 10px, so nudge by half of it */
+.page {
+  position: relative;
+  left: calc(var(--main-scrollbar-w, 10px) / 2);
+  max-width: 870px;
+  margin: 0 auto;
+  padding: 28px;
+}
+.fullHeight {
+  min-height: calc(100vh - 56px);
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 34px;
+  letter-spacing: -0.28px;
+}
+
+/* text tabs */
+.tabs {
+  display: flex;
+  gap: 24px;
+  border-bottom: 0.667px solid rgb(24, 24, 27);
+}
+.tab {
+  position: relative;
+  top: 1px;
+  display: block;
+  padding: 0 0 14px;
+  border-bottom: 0.667px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+.tab > span {
+  display: flow-root;
+  overflow: hidden;
+  color: rgb(120, 120, 135);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  transition: color 0.15s;
+}
+.tab:hover > span {
+  color: var(--c-text-80);
+}
+.tabActive {
+  border-bottom-color: var(--c-text);
+}
+.tabActive > span,
+.tabActive:hover > span {
+  color: var(--c-text);
+}
+
+/* sections and grouped rows */
+.section {
+  display: flex;
+  flex-direction: column;
+}
+.offset {
+  margin-top: 48px;
+}
+.compact {
+  margin-top: 24px;
+}
+.sectionTitle {
+  margin: 0 0 16px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+.group {
+  display: flex;
+  flex-direction: column;
+  border: 0.667px solid rgb(24, 24, 27);
+  border-radius: 16px;
+}
+.spaced {
+  margin-top: 16px;
+}
+.row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 74px;
+  padding: 16px;
+  background: rgba(24, 24, 27, 0.6);
+}
+.noFill .row {
+  background: none;
+}
+.row:first-child {
+  border-radius: 16px 16px 0 0;
+}
+.row:last-child {
+  border-radius: 0 0 16px 16px;
+}
+.row:only-child {
+  border-radius: 16px;
+}
+.row:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: -1px;
+  height: 0.667px;
+  background: rgb(24, 24, 27);
+  pointer-events: none;
+}
+.rowText {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+  min-width: 0;
+}
+.rowTitle {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.rowDesc {
+  display: block;
+  color: var(--c-text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0.18px;
+  user-select: text;
+}
+.rowIcon {
+  flex: none;
+  color: rgb(120, 120, 135);
+  border-radius: 2px;
+}
+.rowLink {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+}
+.row:has(> .rowLink:hover) {
+  background: rgba(36, 36, 41, 0.75);
+}
+.rowControls {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+}
+
+/* switch */
+.switch {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 42px;
+  height: 26px;
+  border-radius: 32px;
+  background: rgb(48, 48, 54);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.switch::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #000;
+  transition: transform 0.2s var(--ease-out);
+}
+.switchOn {
+  background: rgb(228, 228, 231);
+}
+.switchOn::after {
+  transform: translateX(16px);
+}
+.switchDisabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.switch input {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  font-weight: 400;
+  line-height: normal;
+  cursor: inherit;
+}
+
+/* select */
+.selectWrap {
+  position: relative;
+  flex: none;
+}
+.select {
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  height: 32px;
+  padding: 7px 26px 7px 10px;
+  border: 0;
+  border-radius: 7px;
+  outline: none;
+  background: rgb(24, 24, 27);
+  color: var(--c-text);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  white-space: pre;
+  appearance: none;
+  cursor: pointer;
+}
+.select:hover {
+  background: rgb(36, 36, 41);
+}
+.select option {
+  background: rgb(36, 36, 41);
+  font-weight: 400;
+}
+.selectIcon {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  color: var(--c-text);
+  pointer-events: none;
+}
+
+/* small rectangular buttons (Manage, Edit profile, Change…) */
+.smallBtn {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 32px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  background: rgb(36, 36, 41);
+  color: var(--c-text);
+  transition: background-color 0.15s;
+}
+.smallBtn > span {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: 0.18px;
+  white-space: nowrap;
+}
+.smallBtn:hover:not(:disabled) {
+  background: rgb(48, 48, 54);
+}
+.smallBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* audio quality radio rows */
+.qualityRow {
+  overflow: visible;
+}
+.qualityRow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  border-radius: inherit;
+  background: radial-gradient(100% 100% at 1.6% 50%, rgba(51, 255, 238, 0.1) 0%, rgba(51, 255, 238, 0) 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.qualitySelected::before {
+  opacity: 1;
+}
+.qualityButton {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 1px 6px 1px 20px;
+  border-radius: inherit;
+  text-align: left;
+}
+.radio {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+}
+.radioDot {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(48, 48, 54, 0.4);
+  box-shadow: rgba(48, 48, 54, 0.4) 0 0 0 7px;
+  transition:
+    background-color 0.2s,
+    box-shadow 0.2s;
+}
+.qualitySelected .radioDot {
+  background: var(--c-active);
+  box-shadow: rgba(33, 254, 236, 0.1) 0 0 0 7px;
+}
+.qualityText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 4px;
+}
+.qualityTitle {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.qualityDesc {
+  color: var(--c-text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0.18px;
+}
+.qualityExtra {
+  position: relative;
+  z-index: 1;
+  margin-left: auto;
+}
+
+/* preview cards (player background, window transparency) */
+.cardsRow {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 16px;
+  background: rgba(24, 24, 27, 0.6);
+}
+.cardsRow:first-child {
+  border-radius: 16px 16px 0 0;
+}
+.cardsRow:last-child {
+  border-radius: 0 0 16px 16px;
+}
+.cardsRow:only-child {
+  border-radius: 16px;
+}
+.cardsRow:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: -1px;
+  height: 0.667px;
+  background: rgb(24, 24, 27);
+}
+.cardsInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cardsTitle {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 22px;
+}
+.cardsDesc {
+  color: var(--c-text-2);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+}
+.cards {
+  display: flex;
+  flex: none;
+  gap: 16px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 72px;
+}
+.preview {
+  position: relative;
+  display: block;
+  width: 72px;
+  height: 48px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition: box-shadow 0.15s;
+}
+.card:hover .preview {
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.35);
+}
+.cardDisabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.cardDisabled:hover .preview {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.previewSelected,
+.card:hover .previewSelected {
+  box-shadow: 0 0 0 2px var(--c-text);
+}
+.previewInner {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.cardLabel {
+  color: var(--c-text-2);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+}
+.cardLabelOn {
+  color: var(--c-text);
+}
+
+/* slider row (transparency tint) */
+.range {
+  width: 220px;
+  accent-color: var(--c-text);
+  cursor: pointer;
+}
+.rangeValue {
+  width: 40px;
+  color: var(--c-text-2);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* text input (file name template) */
+.input {
+  width: 100%;
+  height: 32px;
+  padding: 7px 10px;
+  border: 0.667px solid transparent;
+  border-radius: 7px;
+  outline: none;
+  background: rgb(24, 24, 27);
+  color: var(--c-text);
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 12px;
+  line-height: 18px;
+  user-select: text;
+}
+.input:focus {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+.inputInvalid,
+.inputInvalid:focus {
+  border-color: rgb(255, 66, 66);
+}
+.segmented {
+  display: flex;
+  flex: none;
+  padding: 2px;
+  border-radius: 8px;
+  background: rgb(24, 24, 27);
+}
+.segment {
+  min-width: 32px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 6px;
+  color: var(--c-text-2);
+  font-size: 12px;
+  font-weight: 600;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+}
+.segment:hover {
+  color: var(--c-text);
+}
+.segmentOn,
+.segmentOn:hover {
+  background: rgb(48, 48, 54);
+  color: var(--c-text);
+}

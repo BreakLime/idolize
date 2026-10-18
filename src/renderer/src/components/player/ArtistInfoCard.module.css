@@ -1,0 +1,133 @@
+.card {
+  position: absolute;
+  left: 0;
+  bottom: 72px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  height: 448px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: rgb(20, 20, 20);
+  box-shadow:
+    rgba(0, 0, 0, 0.2) 0 2px 4px 0,
+    rgba(0, 0, 0, 0.36) 0 12px 28px -6px,
+    rgba(0, 0, 0, 0.28) 0 28px 56px -16px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px) scale(0.96);
+  transform-origin: 0 100%;
+  transition:
+    opacity 0.3s var(--ease-out),
+    transform 0.4s var(--ease-out),
+    visibility 0s 0.4s;
+  pointer-events: none;
+}
+.open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 0.3s var(--ease-out),
+    transform 0.4s var(--ease-out);
+  pointer-events: auto;
+}
+.media {
+  display: block;
+  flex: none;
+  width: 320px;
+  height: 320px;
+  mask-image: linear-gradient(rgb(0, 0, 0) 0%, rgb(0, 0, 0) 54%, rgba(0, 0, 0, 0.86) 68%, rgba(0, 0, 0, 0.54) 80%, rgba(0, 0, 0, 0.22) 90%, rgba(0, 0, 0, 0) 100%);
+}
+.image {
+  display: block;
+  width: 320px;
+  height: 320px;
+  object-fit: cover;
+  background: var(--c-surface-3);
+}
+.content {
+  position: relative;
+  height: 184px;
+  margin-top: -56px;
+  padding: 20px;
+}
+.name {
+  display: block;
+  overflow: hidden;
+  color: var(--c-text);
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 26px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.name:hover {
+  text-decoration: underline;
+}
+.bio {
+  display: -webkit-box;
+  height: 54px;
+  margin-top: 8px;
+  overflow: hidden;
+  color: var(--c-text-2);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  user-select: text;
+}
+.actions {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  gap: 8px;
+}
+.btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 9px 16px;
+  column-gap: 8px;
+  border-radius: var(--r-pill);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 22px;
+  white-space: nowrap;
+  transition:
+    background-color 0.24s cubic-bezier(0.76, 0, 0.24, 1),
+    color 0.24s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.primary {
+  color: rgb(16, 16, 16);
+  background: var(--c-text);
+}
+.primary:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.35);
+}
+.ghost {
+  color: var(--c-text);
+}
+.ghost:hover {
+  background: var(--c-fill-08);
+}
+.dialogBio {
+  max-height: 50vh;
+  overflow-y: auto;
+  padding-right: 8px;
+  color: var(--c-text-80);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  user-select: text;
+}
+.dialogBio p + p {
+  margin-top: 12px;
+}

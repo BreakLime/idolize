@@ -1,0 +1,176 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-popover) - 1);
+  app-region: no-drag;
+}
+/* TIDAL's menu: rgb(45,45,45) panel, 12px radius, 4px vertical padding, rows inset 4px with a 9px radius. */
+.menu {
+  position: fixed;
+  z-index: var(--z-popover);
+  width: 240px;
+  max-height: calc(100vh - 16px);
+  overflow-y: auto;
+  padding: 4px 0;
+  background: rgb(45, 45, 45);
+  border-radius: var(--r-xl);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  color: var(--c-text);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  app-region: no-drag;
+  scrollbar-width: none;
+}
+.submenu {
+  width: auto;
+  min-width: 200px;
+  max-width: 360px;
+}
+.itemWrap {
+  height: 42px;
+  margin: 0 4px;
+  border-radius: 9px;
+}
+.tall {
+  height: 48px;
+}
+.itemWrap:hover,
+.itemWrap.open {
+  background: rgba(255, 255, 255, 0.15);
+}
+.itemWrap.disabled {
+  background: none;
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  color: var(--c-text);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+}
+.link {
+  line-height: 20px;
+}
+.item:disabled {
+  color: var(--c-text-3);
+  cursor: default;
+}
+.label {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: 0.18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.leading {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 28px;
+}
+.labelAfterLeading {
+  padding-left: 0;
+}
+.trail {
+  display: flex;
+  flex: none;
+  margin-right: 12px;
+  color: rgb(120, 120, 135);
+}
+.separator {
+  height: 1px;
+  margin: 4px 12px;
+  background: rgba(255, 255, 255, 0.08);
+}
+.divider {
+  height: 0;
+  margin: 12px 0;
+  border: 0.667px solid rgba(255, 255, 255, 0.08);
+}
+.heading {
+  display: block;
+  padding: 12px 16px 8px;
+  color: var(--c-text-2);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  cursor: default;
+}
+.divider + .heading {
+  padding-top: 4px;
+}
+.custom {
+  padding: 8px 12px;
+}
+.header {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  height: 70px;
+  margin-top: 4px;
+  padding: 16px;
+  overflow: hidden;
+}
+.headerText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+.headerTitle {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.headerSub {
+  color: var(--c-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: 0.18px;
+}
+.infoHeader {
+  padding: 8px 16px;
+  cursor: default;
+}
+.infoTitle {
+  padding-bottom: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.infoSub {
+  color: var(--c-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: 0.18px;
+}
+.submenu .infoSub {
+  white-space: nowrap;
+}
+.section {
+  height: 42px;
+  padding: 12px;
+  cursor: default;
+}
+.section span {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
+  letter-spacing: 0.504px;
+  text-transform: uppercase;
+}

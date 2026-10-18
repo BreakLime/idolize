@@ -1,0 +1,78 @@
+.skeleton {
+  margin: 0 20px 48px;
+  padding: 0 28px;
+}
+.wide {
+  margin: 0 0 40px;
+  padding: 0 48px;
+}
+.top {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  height: 240px;
+  margin-top: 24px;
+}
+.art {
+  width: 240px;
+  height: 240px;
+  border-radius: 2px;
+  background: var(--c-surface-3);
+}
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.line {
+  height: 16px;
+  border-radius: 4px;
+  background: var(--c-surface-3);
+}
+.controls {
+  display: flex;
+  gap: 16px;
+  margin-top: 48px;
+}
+.pill {
+  width: 160px;
+  height: 48px;
+  border-radius: var(--r-pill);
+  background: var(--c-fill-08);
+}
+.skeleton .art,
+.skeleton .line,
+.skeleton .pill {
+  animation: pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+.error {
+  padding: 96px 48px;
+  text-align: center;
+}
+.errorTitle {
+  margin-bottom: 12px;
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 32px;
+}
+.errorText {
+  color: var(--c-text-2);
+}
+.retry {
+  height: 48px;
+  margin-top: 24px;
+  padding: 0 24px;
+  border-radius: 12px;
+  color: var(--c-text);
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 16px;
+  font-weight: 500;
+}
+.retry:hover {
+  background: rgba(255, 255, 255, 0.28);
+}

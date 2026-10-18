@@ -1,0 +1,238 @@
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.table th {
+  padding: 3px;
+  text-align: left;
+  font-weight: 700;
+}
+.table th:first-child {
+  width: 0;
+}
+.table th:nth-child(2),
+.table td:nth-child(2) {
+  padding-left: 8px;
+}
+.head {
+  color: var(--c-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+.row > td {
+  max-width: 201px;
+  padding: 4px 10px 4px 3px;
+  text-overflow: ellipsis;
+}
+.row:hover {
+  background: rgba(37, 37, 37, 0.5);
+}
+.imageCol {
+  width: 3%;
+  min-width: 42px;
+}
+.image {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  vertical-align: baseline;
+}
+.image img,
+.noImage {
+  display: block;
+  width: 42px;
+  height: 42px;
+  border-radius: 2px;
+  background: var(--c-surface-3);
+}
+.iconWrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--c-text);
+}
+.playIcon {
+  margin-left: -2px;
+  opacity: 0;
+}
+.row:hover .playIcon,
+.active .playIcon {
+  opacity: 1;
+}
+.titleCol {
+  width: 30%;
+  max-width: 100%;
+  height: 100%;
+  margin-right: 4px;
+  text-align: start;
+}
+.textAndBadges {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+.title {
+  display: flow-root;
+  margin-right: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+.active .title {
+  color: var(--c-active);
+}
+.version {
+  color: var(--c-text-2);
+}
+.artistCol,
+.albumCol {
+  width: 25%;
+}
+.cellText {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+.extraCol {
+  color: var(--c-text-2);
+  white-space: nowrap;
+}
+.extraCol > * {
+  display: block;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.timeCol {
+  width: 8%;
+  font-variant-numeric: tabular-nums;
+}
+.buttonCol {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  width: auto;
+  min-width: 80px;
+  min-height: 100%;
+  margin-top: 10px;
+}
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.15s;
+}
+.add {
+  display: block;
+  align-items: normal;
+}
+.add svg {
+  display: inline;
+}
+.btn:hover,
+.favOn {
+  color: var(--c-text);
+}
+.context {
+  opacity: 0;
+}
+.row:hover .context {
+  opacity: 1;
+}
+.unavailable {
+  opacity: 0.4;
+}
+/* artist name under the title: only in the compact (narrow window) rows */
+.titleArtist {
+  display: none;
+}
+@media (width <= 992px) {
+  .albumHead,
+  .timeHead,
+  .albumCol,
+  .timeCol {
+    display: none;
+  }
+  .titleCol {
+    width: 50%;
+  }
+  .artistCol {
+    width: 30%;
+  }
+  .buttonCol {
+    width: 50%;
+  }
+}
+@media (width <= 768px) {
+  .table thead {
+    display: none;
+  }
+  .row > td {
+    padding: 8px 8px 8px 0;
+  }
+  .table td:nth-child(2) {
+    padding: 8px;
+  }
+  .artistCol {
+    display: none;
+  }
+  .imageCol {
+    width: 48px;
+    min-width: 48px;
+  }
+  .image,
+  .image img,
+  .noImage {
+    width: 48px;
+    height: 48px;
+  }
+  .titleCol {
+    width: 70%;
+    max-width: 201px;
+  }
+  .title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+  }
+  .titleArtist {
+    display: flex;
+    min-width: 0;
+  }
+  .titleArtist > span {
+    overflow: hidden;
+    color: var(--c-text-muted);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    text-overflow: ellipsis;
+    white-space: pre;
+  }
+  .buttonCol {
+    width: 40%;
+  }
+  .add,
+  .buttonCol .btn:not(.context) {
+    display: none;
+  }
+  .context {
+    opacity: 1;
+  }
+}

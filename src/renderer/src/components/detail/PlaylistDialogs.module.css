@@ -1,0 +1,195 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.top {
+  display: flex;
+  gap: 20px;
+}
+.imageCol {
+  flex: none;
+  width: 150px;
+}
+.fields {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+.titleBox {
+  position: relative;
+  display: block;
+  height: 72px;
+  border: 0.667px solid var(--c-dialog-border);
+  border-radius: 8px;
+  cursor: text;
+}
+.titleLabel {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  color: var(--c-text);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.titleInput {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 40px;
+  padding: 1px 2px 1px 0;
+  color: var(--c-text-muted);
+  font-size: 12px;
+  font-weight: 400;
+  background: none;
+  border: 0;
+  outline: none;
+}
+.titleInput:focus {
+  color: var(--c-text);
+}
+.descWrap {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+}
+.desc {
+  height: 140px;
+  padding: 20px;
+  resize: none;
+  color: var(--c-text);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  background: var(--c-dialog);
+  border: 0.667px solid var(--c-dialog-border);
+  border-radius: 8px;
+  outline: none;
+}
+.desc::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+.desc:focus {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+.counter {
+  margin: 4px 0 0 12px;
+  color: rgb(120, 120, 135);
+  font-size: 12px;
+  line-height: 18px;
+}
+.publicBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(48, 48, 54, 0.2);
+  border: 0.667px solid var(--c-dialog-border);
+  border-radius: 12px;
+}
+.publicTitle {
+  display: block;
+  color: var(--c-text);
+  font-weight: 600;
+}
+.publicSub {
+  display: block;
+  margin-top: 4px;
+  color: var(--c-text-muted);
+  font-size: 12px;
+  line-height: 18px;
+}
+.switch {
+  position: relative;
+  flex: none;
+  width: 42px;
+  height: 26px;
+  border-radius: 32px;
+  background: rgb(48, 48, 54);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.switch::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #000;
+  transition: transform 0.2s;
+}
+.switchOn {
+  background: var(--c-text);
+}
+.switchOn::after {
+  transform: translateX(16px);
+}
+.switch input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 0 0;
+  padding: 0;
+}
+.save {
+  height: 34px;
+  padding: 8px 16px;
+  color: #000;
+  background: var(--c-text);
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+}
+.save:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.pickList {
+  display: flex;
+  flex-direction: column;
+  max-height: 420px;
+  overflow-y: auto;
+}
+.pickItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px;
+  border-radius: 9px;
+  text-align: left;
+}
+.pickItem:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+.pickText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  color: var(--c-text);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.pickSub {
+  color: var(--c-text-muted);
+  font-size: 12px;
+  line-height: 18px;
+}
+.empty {
+  padding: 8px;
+  color: var(--c-text-2);
+}

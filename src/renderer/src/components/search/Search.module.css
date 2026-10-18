@@ -1,0 +1,163 @@
+/* results page: starts at the very top of the content area (under the floating header) */
+.page {
+  --bleed: 36px;
+  margin-top: calc(-1 * var(--header-h));
+  padding: 0 var(--bleed) 30px;
+}
+.header {
+  position: sticky;
+  /* main's padding-top offsets sticky positions; stick to the very top of the content area */
+  top: calc(-1 * var(--header-h));
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  margin: 0 calc(var(--bleed) * -1) -24px;
+  padding: calc(var(--header-h) + 24px) var(--bleed) 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(20px) saturate(1.8);
+}
+.pillsArea {
+  display: flex;
+  padding-bottom: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.pillsArea::-webkit-scrollbar {
+  display: none;
+}
+.pills {
+  display: flex;
+  gap: 8px;
+}
+.pill {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  column-gap: 8px;
+  min-height: 40px;
+  padding: 9px 16px;
+  color: var(--c-text);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--r-pill);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 22px;
+  white-space: nowrap;
+  transition:
+    background-color 0.24s cubic-bezier(0.76, 0, 0.24, 1),
+    color 0.24s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.pill:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.pillActive {
+  color: rgb(16, 16, 16);
+  background: var(--c-text);
+}
+.pillActive:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+.divider {
+  height: 1px;
+  margin: 12px calc(var(--bleed) * -1) 0;
+  background: rgba(255, 255, 255, 0.08);
+}
+.results {
+  margin-top: 32px;
+}
+
+/* top results */
+.topHits {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.topHit {
+  position: relative;
+  width: 100%;
+  margin: 0 0 4px;
+  border-radius: 8px;
+}
+.topHit:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.fullWidth {
+  width: 100%;
+}
+.topHitCell {
+  position: relative;
+  display: flex;
+  pointer-events: none;
+}
+/* the whole row is one link (::before overlay); only inner links/buttons catch the pointer */
+.topHitCell a,
+.topHitCell button {
+  pointer-events: auto;
+}
+.rowLink::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/* grids */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+}
+.cell {
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 25 / 36;
+}
+.videoCell {
+  aspect-ratio: 1 / 1;
+}
+.artistCell {
+  aspect-ratio: 25 / 33;
+}
+.sentinel {
+  grid-column: 1 / -1;
+  height: 0;
+}
+
+.loading {
+  min-height: 200px;
+}
+.empty {
+  padding: 64px 0;
+  text-align: center;
+}
+.emptyTitle {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+}
+.emptyText {
+  margin-top: 8px;
+  color: var(--c-text-2);
+}
+
+@media (width <= 576px) {
+  .page {
+    --bleed: 16px;
+    padding: 0 16px 8px;
+  }
+}

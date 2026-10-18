@@ -1,0 +1,74 @@
+/* Design tokens measured from TIDAL desktop 2.43.2 (see tools/compare/palette.ts). Names are ours. */
+:root {
+  --font-text: 'Segoe UI Variable Text', 'Segoe UI', system-ui, Helvetica, Arial, sans-serif;
+  --font-display: 'Segoe UI Variable Display', 'Segoe UI', system-ui, Helvetica, Arial, sans-serif;
+
+  --c-bg: #000;
+  --c-text: #fff;
+  --c-text-2: rgba(255, 255, 255, 0.55); /* secondary */
+  --c-text-3: rgba(255, 255, 255, 0.35); /* times, disabled */
+  --c-text-4: rgba(255, 255, 255, 0.3);
+  --c-text-strong-2: rgba(255, 255, 255, 0.6);
+  --c-text-80: rgba(255, 255, 255, 0.8);
+  --c-text-muted: rgb(175, 175, 182);
+
+  --c-surface-1: rgb(20, 20, 20);
+  --c-surface-2: rgb(28, 28, 28);
+  --c-surface-3: rgb(36, 36, 41); /* buttons, pills, rows */
+  --c-surface-4: rgb(48, 48, 54); /* hover on surface-3 */
+  --c-fill-08: rgba(255, 255, 255, 0.08);
+  --c-fill-10: rgba(255, 255, 255, 0.1);
+  --c-fill-15: rgba(255, 255, 255, 0.15);
+  --c-fill-20: rgba(255, 255, 255, 0.2);
+  --c-glass: rgba(40, 40, 40, 0.75);
+  --glass-filter: blur(20px) saturate(1.8);
+  --c-dialog: rgb(24, 24, 27);
+  --c-dialog-border: rgb(36, 36, 41);
+  --c-menu: rgb(36, 36, 41);
+
+  --c-accent: rgb(22, 216, 167); /* lossless badge */
+  --c-accent-bg: rgba(22, 216, 167, 0.28);
+  --c-active: rgb(51, 255, 238); /* now-playing highlight */
+  --c-max: rgb(255, 212, 50); /* MAX quality badge */
+  --c-max-bg: rgba(255, 212, 50, 0.1);
+  --c-danger: rgb(232, 17, 35);
+
+  --r-xs: 2px;
+  --r-s: 3px;
+  --r-m: 4px;
+  --r-l: 8px;
+  --r-xl: 12px;
+  --r-pill: 1000px;
+
+  --titlebar-h: 30px;
+  --sidebar-w: 240px;
+  --sidebar-w-collapsed: 72px;
+  --header-h: 56px;
+  --player-h: 88px;
+  --content-pad: 64px;
+  /* the main area uses an overlay scrollbar (layout/OverlayScrollbar): it takes no width */
+  --main-scrollbar-w: 0px;
+
+  --shadow-cover: 0 0.5px 2px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.1), 0 8px 24px -4px rgba(0, 0, 0, 0.08);
+  --shadow-pop: 0 16px 32px rgba(0, 0, 0, 0.3);
+  --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --z-sidebar: 50;
+  --z-nowplaying: 60;
+  --z-header: 90;
+  --z-player: 91;
+  --z-popover: 200;
+  --z-dialog: 500;
+  --z-titlebar: 1000;
+
+  /* app backdrop; transparent mode swaps these for a tinted glass */
+  --app-bg: var(--c-bg);
+  --sidebar-bg: var(--c-bg);
+  --player-bg: var(--c-bg);
+}
+
+:root[data-transparent='true'] {
+  --app-bg: rgba(0, 0, 0, var(--tint, 0.75));
+  --sidebar-bg: rgba(0, 0, 0, calc(var(--tint, 0.75) * 0.6));
+  --player-bg: rgba(0, 0, 0, calc(var(--tint, 0.75) * 0.85));
+}

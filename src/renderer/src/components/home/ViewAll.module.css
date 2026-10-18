@@ -1,0 +1,80 @@
+/* Home "View all" pages (same column as the home feed). */
+.page {
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 1500px;
+  max-width: calc(100% - 8vw);
+  margin: 0 auto;
+  padding: 20px;
+}
+@media (max-width: 576px) {
+  .page {
+    max-width: calc(100% - 32px);
+    padding: 16px;
+  }
+}
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 34px;
+  letter-spacing: -0.32px;
+}
+@media (max-width: 576px) {
+  .title {
+    font-size: 24px;
+    line-height: 40px;
+  }
+}
+.subtitle {
+  color: var(--c-text-2);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+}
+.titleSkeleton {
+  width: 280px;
+  height: 34px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+}
+@media (max-width: 576px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+/* fixed-ratio cells like TIDAL's virtualized grid (keeps rows aligned whatever the text length) */
+.cell {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 25 / 36;
+}
+.mixCell {
+  aspect-ratio: 25 / 37;
+}
+.artistCell {
+  aspect-ratio: 25 / 33;
+}
+.videoCell {
+  aspect-ratio: 1 / 1;
+}
+.magazineCell {
+  aspect-ratio: 11 / 16;
+}
+/* TIDAL's virtualized grid ends with an empty row (adds one row gap of bottom space) */
+.endRow {
+  grid-column: 1 / -1;
+  height: 0;
+}

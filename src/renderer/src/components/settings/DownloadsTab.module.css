@@ -1,0 +1,61 @@
+.folder {
+  display: block;
+  max-width: 520px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.templateRow {
+  display: block;
+}
+.template {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.templateTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.token {
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 6px;
+  background: rgb(36, 36, 41);
+  color: var(--c-text-80);
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+}
+.token:hover {
+  background: rgb(48, 48, 54);
+  color: var(--c-text);
+}
+.preview {
+  color: var(--c-text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0.18px;
+  word-break: break-all;
+  user-select: text;
+}
+.path {
+  color: var(--c-text);
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 12px;
+  letter-spacing: 0;
+}
+.problem {
+  color: rgb(255, 66, 66);
+}

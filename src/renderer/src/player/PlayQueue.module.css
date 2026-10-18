@@ -1,0 +1,389 @@
+/* a column of the main flex row (main content shrinks), starting below the floating header */
+.wrapper {
+  position: relative;
+  z-index: var(--z-player);
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-self: flex-start;
+  width: 350px;
+  height: calc(100% - 160px);
+  margin-top: 60px;
+  overflow: hidden;
+}
+/* window transparency: the row already ends above the player bar */
+:root[data-transparent='true'] .wrapper {
+  height: calc(100% - 72px);
+}
+/* while the queue is open the floating header still spans the full window width */
+:global(#root:has([data-test='playqueue'])) :global([data-test='main-layout-header']) {
+  right: -350px;
+}
+.container {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  margin: 0 8px 8px;
+  padding: 16px 16px 0;
+  overflow: hidden;
+  border: 0.667px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: linear-gradient(rgba(60, 60, 60, 0.35) 0%, rgba(70, 70, 70, 0.35) 100%);
+  backdrop-filter: blur(26px);
+  box-shadow:
+    rgba(0, 0, 0, 0.15) 0 10px 12px 0,
+    rgba(255, 255, 255, 0.08) 0 0 2px 0 inset;
+  animation: slideIn 0.3s var(--ease-out);
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}
+.drop {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.queue {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+}
+.header {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  margin-bottom: 16px;
+}
+.heading {
+  flex: 1 1 auto;
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 26px;
+  white-space: nowrap;
+}
+.headerBtn {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  column-gap: 8px;
+  border-radius: var(--r-pill);
+  color: var(--c-text);
+  font-weight: 600;
+  line-height: 22px;
+  transition:
+    background-color 0.24s cubic-bezier(0.76, 0, 0.24, 1),
+    color 0.24s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.headerBtn > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: var(--c-text-3);
+  transition: color 0.2s;
+}
+.headerBtn:hover {
+  background: var(--c-fill-08);
+}
+.headerBtn:hover > span {
+  color: var(--c-text);
+}
+.headerBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+  background: none;
+}
+.stickyLabel {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 30px;
+  padding-bottom: 8px;
+}
+.stickyLabel p {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  transition: opacity 0.15s ease-out;
+}
+/* a 12px gutter on the right holds the overlay scrollbar */
+.scroll {
+  flex: 1 1 0%;
+  align-items: stretch;
+  margin-right: -12px;
+  padding-right: 12px;
+}
+.scrollInner {
+  margin-right: -12px;
+  padding-right: 12px;
+}
+.table {
+  position: relative;
+  width: 100%;
+}
+.vrow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.rowWrap {
+  position: relative;
+  height: 44px;
+  margin-bottom: 16px;
+  overflow: visible;
+}
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 62px;
+  margin-bottom: 16px;
+  padding-top: 40px;
+}
+.playingFrom {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--c-text-muted);
+  white-space: nowrap;
+}
+.playingFrom p {
+  color: var(--c-text);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+}
+.fromLink {
+  color: var(--c-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.clear {
+  flex: none;
+  transition: opacity 0.1s;
+}
+.clear p {
+  color: var(--c-text-2);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+}
+.clear:hover p {
+  color: var(--c-text);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) 20px;
+  grid-template-rows: 44px;
+  align-items: center;
+  gap: 12px;
+  height: 44px;
+  border-radius: 6px;
+  transition: opacity 0.15s;
+}
+.history {
+  opacity: 0.5;
+}
+.history:hover {
+  opacity: 0.8;
+}
+.dragging {
+  opacity: 0.4;
+}
+.dropTarget {
+  box-shadow: 0 -2px 0 0 var(--c-active);
+}
+.item[draggable='true'] {
+  cursor: grab;
+}
+.coverCell {
+  position: relative;
+  width: 44px;
+  margin-left: 2px;
+  height: 44px;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.cover {
+  position: relative;
+  width: 44px;
+  height: 44px;
+}
+.cover img {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  background: var(--c-surface-3);
+}
+.coverPlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--c-text);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.item:hover .coverPlay {
+  opacity: 1;
+}
+.coverPlayBtn {
+  display: flex;
+  width: 16px;
+  height: 16px;
+  color: #000;
+}
+.coverPlayBtn svg {
+  color: var(--c-text);
+}
+.nowPlaying {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-content: center;
+  color: var(--c-text);
+}
+.currentTint {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.1);
+}
+.eq rect {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transform: scaleY(0.45);
+}
+.eqOn .eq rect {
+  animation: eq 0.9s ease-in-out infinite alternate;
+}
+.eqOn .eq rect:nth-child(2) {
+  animation-delay: -0.45s;
+}
+.eqOn .eq rect:nth-child(3) {
+  animation-delay: -0.2s;
+}
+@keyframes eq {
+  from {
+    transform: scaleY(0.25);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.textCell {
+  display: grid;
+  grid-template-rows: 22px 22px;
+  min-width: 0;
+  overflow: hidden;
+}
+.titleRow {
+  display: grid;
+  grid-template-columns: minmax(0, max-content);
+  align-items: center;
+  gap: 8px;
+  height: 22px;
+}
+.titleLink {
+  display: block;
+  overflow: hidden;
+}
+.title {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.titleLink:hover .title {
+  text-decoration: underline;
+}
+.current {
+  color: var(--c-active);
+}
+.artists {
+  display: block;
+  overflow: hidden;
+  color: var(--c-text-2);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.actionCell {
+  display: flex;
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+.more,
+.remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  transition:
+    color 0.15s,
+    opacity 0.15s;
+}
+.more {
+  color: rgba(255, 255, 255, 0.6);
+}
+.more:hover {
+  color: var(--c-text);
+}
+.remove {
+  display: block;
+  align-items: normal;
+  color: var(--c-text);
+  opacity: 0.85;
+}
+.remove:hover {
+  opacity: 1;
+}
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 40px 8px;
+  text-align: center;
+}
+.emptyTitle {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+.emptyText {
+  color: var(--c-text-2);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+}

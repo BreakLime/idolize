@@ -1,0 +1,355 @@
+.table {
+  width: 100%;
+  /* columns drop out by the table's own width (TIDAL's media table is an inline-size container) */
+  container-type: inline-size;
+}
+.rowWrap {
+  position: relative;
+}
+.head,
+.row {
+  display: flex;
+  overflow: hidden;
+}
+.head {
+  height: 36px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+  text-transform: uppercase;
+}
+.headLabel {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  font-weight: 600;
+  line-height: 12px;
+  letter-spacing: 0.504px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.head .time {
+  padding-right: 11px;
+}
+/* sortable headers (TIDAL: 12px/600, 0.504px tracking; active arrow 20px scaled to 16) */
+.sortable {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 12px;
+  letter-spacing: 0.504px;
+  text-transform: inherit;
+  color: inherit;
+  transition: color 0.15s;
+}
+.sortable:hover {
+  color: var(--c-text);
+}
+.sortIcon {
+  display: block;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  color: var(--c-active);
+  transform: scale(0.8);
+}
+.head .actions {
+  padding-right: 0;
+}
+.row {
+  height: 48px;
+}
+.cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+  padding-right: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.row:hover .cell,
+.row.active .cell {
+  background: rgba(255, 255, 255, 0.1);
+}
+.row .cell:first-child {
+  border-radius: 5px 0 0 5px;
+}
+.row .cell:last-child {
+  border-radius: 0 5px 5px 0;
+}
+
+/* index */
+.index {
+  flex: 0 0 42px;
+  justify-content: center;
+  padding-right: 0;
+}
+.num {
+  display: block;
+  color: var(--c-text);
+}
+.numText {
+  color: rgb(121, 119, 127);
+}
+.row:hover .numText,
+.row:hover .bars {
+  opacity: 0;
+}
+.playOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: #000;
+  opacity: 0;
+}
+.play svg {
+  color: var(--c-text);
+}
+.row:hover .playOverlay .play {
+  opacity: 1;
+}
+
+/* cover */
+.cover {
+  flex: 0 0 42px;
+  box-sizing: content-box;
+  padding-right: 12px;
+}
+.coverFig {
+  display: block;
+  width: 42px;
+  height: 42px;
+}
+.coverImg {
+  border-radius: 0;
+}
+.coverOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 48px;
+}
+/* without an index column the cover carries the play button on row hover; otherwise on cover hover */
+.noIndex:hover .coverOverlay .play,
+.coverFig:hover .coverOverlay .play {
+  opacity: 1;
+}
+.noIndex:hover .coverOverlay,
+.coverFig:hover .coverOverlay {
+  background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)) 0 3px / 42px 42px no-repeat;
+}
+
+/* title */
+.title {
+  flex: 1 0 228px;
+}
+.titleWithCover {
+  flex-basis: 282px;
+}
+.titleInner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+.titleText {
+  display: block;
+  margin-right: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre;
+}
+.active .titleText {
+  color: var(--c-active);
+}
+/* TIDAL renders the version in the title's own colour */
+.version {
+  color: inherit;
+}
+.textBlock {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre;
+}
+.artistLink:not(:last-child)::after {
+  content: ', ';
+}
+.artist {
+  flex: 1 1 170px;
+}
+.album {
+  flex: 1 1 112px;
+}
+/* grows like the others but never below 140px (TIDAL: flex 1 1 0%, 140px at the default width) */
+.date {
+  flex: 1 1 0%;
+  min-width: 140px;
+}
+.dateText {
+  display: block;
+}
+.dateText::first-letter {
+  text-transform: uppercase;
+}
+.time {
+  flex: 1 1 66px;
+  max-width: 77px;
+  font-variant-numeric: tabular-nums;
+}
+.timeText {
+  display: block;
+}
+
+/* actions */
+.actions {
+  flex: 0 0 100px;
+  justify-content: flex-end;
+  padding-right: 11px;
+}
+.actionsWide {
+  flex-basis: 130px;
+}
+.actionsInner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+.rowBtn {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-left: 4px;
+  color: var(--c-text-strong-2);
+  transition: color 0.15s;
+}
+.rowBtn:first-child {
+  margin-left: 0;
+}
+.rowBtn:hover {
+  color: var(--c-text);
+}
+.more {
+  justify-content: flex-start;
+  opacity: 0;
+}
+.row:hover .more {
+  opacity: 1;
+}
+.addBtn {
+  display: block;
+  align-items: normal;
+}
+.favOn {
+  color: var(--c-text);
+}
+.blockBtn {
+  display: block;
+  align-items: normal;
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+}
+.addSuggested {
+  display: block;
+  align-items: normal;
+  width: 20px;
+  height: 20px;
+}
+.unavailable {
+  opacity: 0.4;
+}
+
+/* "Volume N" sections */
+.volumeHeader {
+  display: flex;
+  flex-direction: column;
+}
+.volumeSeparator {
+  height: 56px;
+  padding: 16px 0;
+}
+.volumeLabel {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.bars {
+  display: block;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(var(--c-active), var(--c-active)) 0 100% / 3px 60% no-repeat,
+    linear-gradient(var(--c-active), var(--c-active)) 50% 100% / 3px 100% no-repeat,
+    linear-gradient(var(--c-active), var(--c-active)) 100% 100% / 3px 40% no-repeat;
+  animation: eq 0.9s ease-in-out infinite alternate;
+}
+@keyframes eq {
+  to {
+    background-size: 3px 100%, 3px 50%, 3px 90%;
+  }
+}
+
+/* responsive columns (TIDAL steps on the table width) */
+@container (width <= 1100px) {
+  .date {
+    display: none;
+  }
+}
+@container (width <= 900px) {
+  .album {
+    display: none;
+  }
+}
+@container (width <= 800px) {
+  .time {
+    display: none;
+  }
+}
+@container (width <= 700px) {
+  .actions {
+    flex: 0 0 50px;
+  }
+  .actionsWide {
+    flex-basis: 80px;
+  }
+  .favBtn,
+  .addBtn {
+    display: none;
+  }
+}
+@container (width <= 600px) {
+  .artist {
+    display: none;
+  }
+}
+/* narrow windows: the row menu button is always shown */
+@media (max-width: 900px) {
+  .more {
+    color: var(--c-text-80);
+    opacity: 1;
+  }
+}

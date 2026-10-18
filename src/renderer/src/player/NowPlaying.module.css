@@ -1,0 +1,247 @@
+/* window-wide color layer behind the app (TIDAL keeps one mounted at z 60) */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-nowplaying);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease-out);
+}
+.backdrop.open {
+  opacity: 1;
+}
+.bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background-color: var(--np-bg);
+  transition: background-color 0.4s var(--ease-out);
+}
+/* "Transparent" / "Acrylic": no layer of its own, the app underneath fades out and the root's glass tint over the
+   window's backdrop shows (global.css) */
+.bgGlass {
+  background-color: transparent;
+}
+/* "Blur" player background: the cover, heavily blurred and dimmed */
+.blurImg {
+  position: absolute;
+  inset: -15%;
+  width: 130%;
+  height: 130%;
+  object-fit: cover;
+  filter: blur(72px) saturate(1.5) brightness(0.55);
+}
+
+/* the view itself, below the title bar and above header/sidebar; the player bar (z 91) stays on top */
+.np {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-header);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  visibility: hidden;
+  transform: translateY(100%);
+  transition:
+    transform 0.4s var(--ease-out),
+    visibility 0s 0.4s;
+  app-region: no-drag;
+}
+.np.open {
+  visibility: visible;
+  transform: none;
+  transition: transform 0.4s var(--ease-out);
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  height: 64px;
+  padding: 16px;
+}
+.leftContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  height: 32px;
+}
+.toggles {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  height: 32px;
+}
+.toggle {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 4px 12px;
+  column-gap: 8px;
+  border-radius: var(--r-pill);
+  color: var(--c-text-2);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  white-space: nowrap;
+  transition:
+    background-color 0.24s cubic-bezier(0.76, 0, 0.24, 1),
+    color 0.24s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.toggle > span {
+  display: block;
+  line-height: 22px;
+}
+.toggle:hover {
+  color: var(--c-text);
+  background: var(--c-fill-08);
+}
+.toggle.toggleOn,
+.toggle.toggleOn:hover {
+  color: #000;
+  background: var(--c-text);
+}
+.actionButtons {
+  display: flex;
+  flex: none;
+  gap: 8px;
+}
+.iconBtn {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 8px;
+  column-gap: 8px;
+  border-radius: var(--r-pill);
+  color: var(--c-text-2);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 22px;
+  transition:
+    background-color 0.24s cubic-bezier(0.76, 0, 0.24, 1),
+    color 0.24s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.iconBtn:hover {
+  color: var(--c-text);
+  background: var(--c-fill-08);
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex: 1 1 0%;
+  min-height: 0;
+}
+.inner {
+  --gutter: 5vw;
+  --art: min(65vh, calc(100vw - 2 * var(--gutter)));
+  display: flex;
+  flex: 1 1 0%;
+  gap: var(--gutter);
+  padding: 0 var(--gutter);
+  overflow: hidden;
+}
+.inner.shifted {
+  --art: min(65vh, 40.5vw);
+  justify-content: center;
+}
+/* the stage: the album a little smaller and higher, the lyrics under it */
+.inner.staged {
+  --art: min(calc(65vh - 104px), calc(100vw - 2 * var(--gutter)));
+}
+.staged .artworkWrapper {
+  padding-bottom: 104px;
+}
+.artworkWrapper {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--art);
+  transition: width 0.4s var(--ease-out);
+}
+.artworkContainer {
+  position: relative;
+  display: flex;
+  flex: none;
+  justify-content: center;
+  width: var(--art);
+  height: var(--art);
+  /* centered in the window while no panel is open */
+  transform: translateX(calc(50vw - var(--gutter) - var(--art) / 2));
+  transition:
+    transform 0.4s var(--ease-out),
+    width 0.4s var(--ease-out),
+    height 0.4s var(--ease-out);
+}
+.shifted .artworkContainer {
+  transform: none;
+}
+.artwork {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.6s var(--ease-out);
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0 1px 3px 0,
+    rgba(0, 0, 0, 0.1) 0 8px 20px 0,
+    rgba(0, 0, 0, 0.12) 0 16px 48px -8px;
+}
+.panelWrapper {
+  position: relative;
+  flex: 1 1 0%;
+  min-width: 0;
+  margin: var(--gutter) 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateX(40px);
+  transition:
+    opacity 0.3s var(--ease-out),
+    transform 0.4s var(--ease-out);
+  pointer-events: none;
+}
+.panelActive {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.panelContent {
+  position: absolute;
+  inset: 0;
+}
+
+/* full screen: the custom title bar disappears and the view takes the whole window */
+:global(html:fullscreen) :global([data-test='title-bar']) {
+  display: none;
+}
+/* the stage's LED wall takes the cover's place */
+.artworkStaged {
+  opacity: 0;
+}
+/* the stage paints under the view's content (the header is above both, z-index 2) */
+.np > .content {
+  z-index: 1;
+}

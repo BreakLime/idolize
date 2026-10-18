@@ -1,0 +1,108 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.imageWrap {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+}
+.video .imageWrap {
+  aspect-ratio: 16 / 9;
+}
+.image {
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+}
+.artist .image {
+  border-radius: 50%;
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.imageWrap:hover .overlay,
+.forceShow {
+  opacity: 1;
+}
+.play {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+}
+.fav {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--c-text);
+  background: #000;
+  transition: transform 0.15s;
+}
+.fav:hover {
+  transform: scale(1.06);
+}
+.details {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  min-width: 0;
+}
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  min-width: 0;
+}
+.title {
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+}
+.artist .details {
+  align-items: center;
+  margin-top: 8px;
+}
+.video .image {
+  aspect-ratio: 16 / 9;
+}
+/* video artist lines stay on one line (TIDAL: white-space pre + ellipsis) */
+.video .subtitle {
+  display: block;
+  white-space: pre;
+  text-overflow: ellipsis;
+}
+.overlayRound {
+  border-radius: 50%;
+}
+.overlayRound .play {
+  left: 50%;
+  bottom: 50%;
+  transform: translate(-50%, 50%);
+}
+.artist .title {
+  text-align: center;
+}
+.subtitle {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--c-text-2);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

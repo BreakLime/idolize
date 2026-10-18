@@ -1,0 +1,499 @@
+/* My Collection — measured from TIDAL 2.43.2 (reference/screens/col-*.json). */
+
+/* ── page frame ─────────────────────────────────────────────────────────── */
+.page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  margin: 24px 48px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  min-width: 0;
+}
+.h1 {
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 32px;
+  white-space: nowrap;
+}
+.titleActions {
+  flex: 1 0 auto;
+  height: 24px;
+  margin-left: 16px;
+}
+.optionsBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--c-text-strong-2);
+  transition: color 0.15s;
+}
+.optionsBtn:hover {
+  color: var(--c-text);
+}
+
+.sortArrow {
+  flex: none;
+  color: var(--c-active);
+}
+
+/* ── collection index (/my-collection) ──────────────────────────────────── */
+.indexNav {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 600px;
+  max-width: 100%;
+  margin-top: 16px;
+}
+.indexItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 48px;
+  padding: 12px 0;
+  border-radius: 12px;
+  color: var(--c-text);
+}
+.indexIcon {
+  flex: none;
+}
+.indexLabel {
+  flex: 1 1 0%;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.indexChevron {
+  flex: none;
+  color: var(--c-text-2);
+}
+.indexBadge {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 25%;
+}
+
+/* ── filter field ───────────────────────────────────────────────────────── */
+.filter {
+  display: flex;
+  align-items: center;
+  height: 41.333px;
+  margin: 32px 0 36px;
+  padding: 0 12px;
+  border: 0.667px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  cursor: text;
+  transition: background-color 0.2s ease-out;
+}
+.filter:focus-within {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.filterTracks {
+  margin-bottom: 40px;
+}
+.filterInput {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 40px;
+  margin: 0 12px;
+  padding: 0 0 0 4px;
+  border: 0;
+  outline: none;
+  background: none;
+  color: var(--c-text);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  cursor: text;
+}
+.filterInput::placeholder {
+  color: var(--c-text-muted);
+}
+.filterInput::-webkit-search-cancel-button {
+  display: none;
+}
+
+/* ── cell grid ──────────────────────────────────────────────────────────── */
+.staticCell {
+  overflow: hidden;
+  aspect-ratio: 25 / 36;
+}
+.ratioAlbum {
+  aspect-ratio: 25 / 36;
+}
+.ratioArtist {
+  aspect-ratio: 25 / 33;
+}
+.ratioVideo {
+  aspect-ratio: 1 / 1;
+}
+.ratioMix {
+  aspect-ratio: 25 / 37;
+}
+.cell {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  overflow: hidden;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.coverWrap {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.cover {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+}
+.cover.wide {
+  aspect-ratio: 16 / 9;
+}
+.coverImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+}
+.round .coverImg {
+  border-radius: 50%;
+}
+
+/* hover controls (fx-hover-controls) */
+.hover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 3px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 100%);
+  opacity: 0;
+  transition: opacity 0.1s, transform 0.1s;
+}
+.coverWrap:hover .hover,
+.hoverOn,
+.hover:focus-within {
+  opacity: 1;
+}
+.hoverRow {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  height: 40px;
+  margin: 0 16px 16px;
+}
+.hoverRight {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.playBtn {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+}
+.playDisc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--c-text);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2.2px 5.5px 0;
+  transition: opacity 0.1s ease-in-out, transform 0.06s ease-in-out;
+}
+.playBtn:hover .playDisc {
+  transform: scale(1.06);
+}
+.playBtn:active .playDisc {
+  transform: scale(0.96);
+}
+.roundBtn {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  color: var(--c-text);
+  border-radius: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  transition: background-color 0.35s;
+}
+.roundBtn:hover {
+  background-color: var(--c-surface-3);
+}
+
+/* artist cells: dark round veil with a centered 56px play button */
+.artistHover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: opacity 0.1s, transform 0.1s;
+}
+.coverWrap:hover .artistHover,
+.artistHover:focus-within {
+  opacity: 1;
+}
+
+/* folder tile */
+.folderTile {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  border-radius: 2px;
+  color: var(--c-active);
+  background-color: rgb(36, 66, 64);
+}
+.folderTile svg {
+  width: 35%;
+  height: 35%;
+}
+
+/* text */
+.titleLink {
+  display: block;
+  height: 20px;
+  min-width: 0;
+  margin-top: 14px;
+  color: var(--c-text);
+}
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  height: 20px;
+}
+.titleRow.centered {
+  justify-content: center;
+}
+.titleText {
+  display: flow-root;
+  min-width: 0;
+  margin-right: 4px;
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.titleLink:hover .titleText {
+  text-decoration: underline;
+}
+.desc {
+  display: flow-root;
+  height: 20px;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--c-text-muted);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.descEmpty {
+  height: 0;
+}
+.artistCell .desc,
+.artistCell .meta {
+  display: none;
+}
+.artistLink {
+  transition: color 0.15s;
+}
+.artistLink:hover {
+  color: var(--c-text-80);
+}
+.creator {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.meta {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+  align-items: center;
+  gap: 8px;
+  height: 16px;
+  margin-top: 3.5px;
+}
+.meta span {
+  display: block;
+  color: var(--c-text-muted);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ── tracks page ────────────────────────────────────────────────────────── */
+.tracksPage {
+  transform: translateX(-2px);
+}
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 160px);
+  gap: 16px;
+  margin-top: 32px;
+}
+.tracks [data-test='track-row-date-added'] {
+  color: var(--c-text);
+}
+
+/* ── empty states ───────────────────────────────────────────────────────── */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 210px;
+}
+.emptyPadded {
+  margin: 64px;
+}
+.emptyInPage {
+  margin: 96px 64px 64px;
+}
+.emptyIcon {
+  color: var(--c-text);
+}
+.emptyBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  border: 0.667px solid rgba(255, 255, 255, 0.08);
+  border-radius: 25%;
+  line-height: 0;
+}
+.emptySaved {
+  margin: 88px 64px 64px;
+}
+.emptyText {
+  margin-top: 24px;
+  color: var(--c-text-2);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: center;
+}
+.emptyAction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  margin-top: 20px;
+  padding: 0 24px;
+  overflow: hidden;
+  border-radius: 12px;
+  color: var(--c-text);
+  background: var(--c-fill-20);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 49px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: background 0.35s;
+}
+.emptyAction:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ── save for later chips ───────────────────────────────────────────────── */
+.chips {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  padding-bottom: 8px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.chip {
+  display: grid;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 24px;
+  overflow: hidden;
+  border-radius: 12px;
+  color: var(--c-text);
+  background-color: var(--c-surface-3);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: background-color 0.35s;
+}
+.chip span {
+  font-weight: 500;
+}
+.chip:hover {
+  background-color: var(--c-surface-4);
+}
+.chipOn,
+.chipOn:hover {
+  color: #000;
+  background-color: var(--c-text);
+}
+
+/* ── purchases tabs ─────────────────────────────────────────────────────── */
+.tabs {
+  display: flex;
+  margin-top: 8px;
+}
+.tab {
+  position: relative;
+  display: block;
+  padding: 16px 32px;
+  color: var(--c-text);
+}
+.tab span {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+}
+.tabLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background-color: var(--c-text);
+}
+.section {
+  margin-top: 32px;
+}

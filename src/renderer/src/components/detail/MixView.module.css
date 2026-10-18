@@ -1,0 +1,23 @@
+.page {
+  position: relative;
+}
+.subtitleWrap {
+  display: flow-root;
+}
+.subtitle {
+  color: var(--c-text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.module {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  margin: 0 20px 48px;
+  padding: 16px 28px 0;
+}
+.empty {
+  padding: 24px 0;
+  color: var(--c-text-2);
+}

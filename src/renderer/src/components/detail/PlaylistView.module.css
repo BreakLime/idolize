@@ -1,0 +1,118 @@
+.page {
+  position: relative;
+}
+.creatorLine {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.creator {
+  display: block;
+  color: var(--c-text-2);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.addCollaborator {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 1px 6px;
+  border-radius: var(--r-pill);
+  color: var(--c-text-muted);
+  background: rgba(255, 255, 255, 0.1);
+}
+.addCollaborator:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.items {
+  margin: 0 0 48px;
+  padding: 0 48px;
+}
+.filter {
+  display: flex;
+  align-items: center;
+  height: 41.33px;
+  margin-bottom: 40px;
+  padding: 0 12px;
+  border: 0.667px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+.filter:focus-within {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.filterInput {
+  flex: 1 1 auto;
+  height: 40px;
+  margin: 0 12px;
+  padding: 0 0 0 4px;
+  color: var(--c-text);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  background: none;
+  border: 0;
+  outline: none;
+}
+.filterInput::placeholder {
+  color: var(--c-text-2);
+}
+.tableLoading {
+  height: 480px;
+}
+.empty {
+  padding: 24px 14px;
+  color: var(--c-text-2);
+}
+.emptyState {
+  padding: 48px 0;
+  text-align: center;
+}
+.emptyTitle {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+.emptyText {
+  margin-top: 8px;
+  color: var(--c-text-2);
+  line-height: 22px;
+}
+.suggested {
+  display: flex;
+  flex-direction: column;
+  margin-top: 48px;
+}
+.suggestedHeader {
+  display: flex;
+  align-items: baseline;
+}
+.suggestedTitle {
+  flex: 1 1 auto;
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: -0.48px;
+}
+.refresh {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  margin: 16px 0 32px;
+  padding: 0 24px;
+  border-radius: 12px;
+  color: var(--c-text);
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 16px;
+  font-weight: 500;
+}
+.refresh:hover {
+  background: rgba(255, 255, 255, 0.28);
+}

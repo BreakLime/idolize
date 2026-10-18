@@ -1,0 +1,537 @@
+.bar {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) minmax(0, 2fr);
+  /* a fixed 52px row: taller items (64px) center by overflowing, like TIDAL */
+  grid-template-rows: 52px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  height: var(--player-h);
+  flex: none;
+  padding: 18px;
+  z-index: var(--z-player);
+  transition:
+    left 0.4s var(--ease-out),
+    right 0.4s var(--ease-out),
+    bottom 0.4s var(--ease-out);
+}
+/* the bar opens Now Playing on a click (its controls keep their own) */
+.handle {
+  cursor: pointer;
+}
+/* soft shadow above + glass plate behind the bar */
+.bar::before {
+  content: '';
+  position: absolute;
+  inset: -80px -12px -12px;
+  z-index: -2;
+  background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.15) 100%);
+  pointer-events: none;
+}
+.bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--c-glass);
+  backdrop-filter: var(--glass-filter);
+  box-shadow: 0 -1px 0 0 rgba(255, 255, 255, 0.08);
+  transition: opacity 0.4s var(--ease-out);
+  pointer-events: none;
+}
+.veil {
+  position: absolute;
+  top: -240px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  z-index: -1;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.02) 10%,
+    rgba(0, 0, 0, 0.06) 24%,
+    rgba(0, 0, 0, 0.12) 40%,
+    rgba(0, 0, 0, 0.2) 56%,
+    rgba(0, 0, 0, 0.28) 72%,
+    rgba(0, 0, 0, 0.35) 86%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out);
+  pointer-events: none;
+}
+
+/* Now Playing open: the bar floats 8px inside the window over the vibrant backdrop
+   (:not(#_) outranks the layout's `.body > :last-child` placement) */
+.bar.np:not(#_) {
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+}
+.np::after,
+.np::before {
+  opacity: 0;
+}
+.np .veil {
+  opacity: 1;
+}
+.np .cover {
+  opacity: 0;
+  transform: translateY(-50px) scale(1.15);
+  pointer-events: none;
+}
+.np .meta {
+  transform: translateX(-64px);
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  height: 64px;
+}
+.cover {
+  position: relative;
+  flex: none;
+  font-weight: 500;
+  line-height: 20px;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--r-xs);
+  box-shadow: var(--shadow-cover);
+  transition:
+    transform 0.15s,
+    opacity 0.15s,
+    color 0.15s;
+}
+.coverIcon {
+  position: absolute;
+  inset: 16px;
+  opacity: 0;
+  color: var(--c-text);
+  transition: opacity 0.15s;
+  z-index: 1;
+}
+.cover:hover {
+  transform: scale(1.08);
+}
+.cover:hover .coverIcon {
+  opacity: 1;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-xs);
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.cover:hover::after {
+  opacity: 1;
+}
+.meta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-width: 0;
+  height: 64px;
+  transition: transform 0.4s var(--ease-out);
+}
+/* not positioned on purpose: the artist card's containing block is .meta, so it escapes this clip */
+.texts {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  height: 64px;
+  overflow: hidden;
+}
+.title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  overflow: hidden;
+}
+.title > a {
+  display: block;
+  line-height: 22px;
+}
+.title span {
+  font-weight: 600;
+  line-height: 22px;
+}
+.artistRow {
+  display: block;
+  height: 20px;
+  overflow: hidden;
+}
+.sub {
+  color: var(--c-text-2);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+}
+.artistRow .sub {
+  display: inline;
+}
+.from {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 18px;
+  margin-top: 2px;
+  min-width: 0;
+}
+.from .sub {
+  display: block;
+}
+.actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+}
+.tiny {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--c-text-2);
+  transition:
+    transform 0.15s,
+    opacity 0.15s,
+    color 0.15s;
+}
+.tiny:hover {
+  color: var(--c-text);
+  transform: scale(1.1);
+}
+/* the track menu button brightens less than the heart (TIDAL) */
+.actions > [data-test='footer-context-menu']:hover {
+  color: var(--c-text-80);
+}
+.tiny.on {
+  color: var(--c-text);
+}
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
+  height: 64px;
+}
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 40px;
+}
+.transport {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.small {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 1px 6px;
+  color: var(--c-text-2);
+  transition:
+    transform 0.15s,
+    opacity 0.15s,
+    color 0.15s;
+}
+.small:hover,
+.small.hot {
+  color: var(--c-text);
+  transform: scale(1.1);
+}
+.small.on {
+  color: var(--c-active);
+}
+.withBg {
+  transition:
+    transform 0.15s,
+    opacity 0.15s,
+    color 0.15s,
+    background-color 0.15s;
+}
+.withBg.active {
+  border-radius: 50%;
+  color: var(--c-text);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+.big {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 1px 6px;
+  color: var(--c-text);
+  transition:
+    transform 0.15s,
+    opacity 0.15s,
+    color 0.15s;
+}
+.big:hover {
+  transform: scale(1.1);
+}
+.big:active {
+  transform: scale(0.94);
+}
+.spinner {
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-top-color: var(--c-text);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.progressRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 18px;
+}
+.time {
+  width: 40px;
+  flex: none;
+  text-align: center;
+  color: var(--c-text-3);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.15s;
+}
+.progressOuter {
+  flex: 1;
+}
+.progress {
+  position: relative;
+  height: 4px;
+}
+.track {
+  position: relative;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: rgba(252, 252, 252, 0.15);
+}
+/* full-width bar slid left, like TIDAL's indicator */
+.fill {
+  width: 100%;
+  height: 100%;
+  background: var(--c-text);
+}
+.thumb {
+  position: absolute;
+  top: -4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--c-text);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.35),
+    0 3px 10px -1px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 10;
+  pointer-events: none;
+}
+.progress:hover .thumb,
+.dragging .thumb {
+  opacity: 1;
+}
+.progressRow:hover .time {
+  color: var(--c-text-2);
+}
+.interaction {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -7px;
+  height: 25px;
+  cursor: pointer;
+}
+.tooltip {
+  position: absolute;
+  top: -29px;
+  transform: translateX(-50%);
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--c-text);
+  color: #000;
+  font-size: 12px;
+  line-height: 18px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  min-width: 0;
+  height: 40px;
+}
+.rightButtons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.badge {
+  flex: none;
+}
+.badge:empty {
+  display: none;
+}
+
+/* volume: vertical slider in a small popover above the speaker button */
+.volume {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+.volPopover {
+  position: absolute;
+  bottom: 46px;
+  left: 0;
+  width: 32px;
+  height: 98px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--c-surface-3);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition:
+    opacity 0.15s,
+    transform 0.15s,
+    visibility 0s 0.15s;
+  z-index: 2;
+}
+/* arrow + an invisible bridge so the pointer can travel from the button */
+.volPopover::after {
+  content: '';
+  position: absolute;
+  left: 11px;
+  bottom: -4px;
+  width: 10px;
+  height: 10px;
+  background: var(--c-surface-3);
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+.volPopover::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -16px;
+  height: 16px;
+}
+.volOpen {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 0.15s,
+    transform 0.15s;
+}
+.volTrack {
+  position: relative;
+  width: 24px;
+  height: 75px;
+  cursor: pointer;
+  touch-action: none;
+}
+.volRail {
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  border-radius: 4px;
+  background: rgba(252, 252, 252, 0.15);
+}
+.volFill {
+  width: 100%;
+  background: var(--c-text);
+}
+.volThumb {
+  position: absolute;
+  left: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--c-text);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+
+/* narrow windows (TIDAL's steps): tighter gaps, no quality badge or row menu; then no cover */
+@media (max-width: 992px) {
+  .bar {
+    gap: 16px;
+  }
+  .meta {
+    gap: 8px;
+  }
+  .controls {
+    gap: 8px;
+  }
+  .rightButtons {
+    gap: 4px;
+  }
+  .badge,
+  .actions > [data-test='footer-context-menu'] {
+    display: none;
+  }
+}
+@media (max-width: 768px) {
+  .cover {
+    display: none;
+  }
+}
+
+/* window transparency: the sidebar's glass instead of the blurred plate and the shade above it (pages and the sidebar
+   end above the bar there, AppLayout) */
+:root[data-transparent='true'] .bar::before {
+  display: none;
+}
+:root[data-transparent='true'] .bar::after {
+  background: var(--sidebar-bg);
+  backdrop-filter: none;
+}

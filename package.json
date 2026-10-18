@@ -1,0 +1,54 @@
+{
+  "name": "idolize",
+  "productName": "Idolize",
+  "version": "0.2.0",
+  "description": "An unofficial desktop client for TIDAL subscribers, with a stage light show, downloads and a see-through window",
+  "main": "out/main/index.js",
+  "scripts": {
+    "test": "vitest run tests/unit",
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "start": "electron-vite preview",
+    "typecheck": "tsc -p tsconfig.json",
+    "e2e": "playwright test",
+    "dist": "electron-vite build && electron-builder --win",
+    "pack": "electron-vite build && electron-builder --win --dir"
+  },
+  "author": "BreakLime",
+  "license": "MIT",
+  "homepage": "https://github.com/BreakLime/idolize#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BreakLime/idolize.git"
+  },
+  "type": "module",
+  "private": "true",
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@tanstack/react-virtual": "^3.14.21",
+    "@types/node": "^26.6.5",
+    "@types/pngjs": "^6.0.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "electron": "^44.9.0",
+    "electron-builder": "^26.15.3",
+    "electron-vite": "^6.0.0",
+    "happy-dom": "^21.0.3",
+    "pixelmatch": "^8.0.0",
+    "playwright": "^1.64.1",
+    "pngjs": "^7.0.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router": "^8.4.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.5",
+    "zustand": "^5.0.15"
+  },
+  "dependencies": {
+    "koffi": "3.3.2",
+    "youtubei.js": "18.1.0"
+  }
+}

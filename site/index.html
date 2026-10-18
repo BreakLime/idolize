@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Idolize</title>
+<meta name="description" content="Idolize: a TIDAL player for Windows you can see through. Unofficial, free and open source." />
+<meta name="theme-color" content="#0a1013" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Idolize" />
+<meta property="og:description" content="A TIDAL player for Windows you can see through. Unofficial, free and open source." />
+<meta property="og:url" content="https://breaklime.github.io/idolize/" />
+<meta property="og:image" content="https://breaklime.github.io/idolize/assets/preview.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<link rel="preload" href="fonts/big-shoulders-display.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin />
+<style>
+  /* Layout: the page is a desktop. The hero is a strip of wallpaper with the real Idolize window on it; change the
+     wallpaper and it shows through the window. Then the light show as a song's timeline, a short list, the download. */
+  /* the fonts, served from this site (SIL Open Font License 1.1, see fonts/) */
+  @font-face {
+    font-family: 'Big Shoulders Display';
+    font-style: normal;
+    font-weight: 700 800;
+    font-display: swap;
+    src: url('fonts/big-shoulders-display.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 400 600;
+    font-stretch: 100%;
+    font-display: swap;
+    src: url('fonts/instrument-sans.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('fonts/ibm-plex-mono-medium.woff2') format('woff2');
+  }
+  :root {
+    --night: #0a1013;
+    --panel: #111a1e;
+    --ink: #eef4f3;
+    --mist: #93a7a8;
+    --amber: #f2b33d;
+    --amber-ink: #1b1305;
+    --line: rgba(238, 244, 243, 0.12);
+    --display: 'Big Shoulders Display', 'Arial Narrow', 'Segoe UI', sans-serif;
+    --body: 'Instrument Sans', 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+    --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+    --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+    --measure: 1160px;
+    color-scheme: dark;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: var(--night);
+    color: var(--ink);
+    font: 17px/1.6 var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+  a {
+    color: inherit;
+  }
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  :focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+  }
+  .wrap {
+    width: 100%;
+    max-width: calc(var(--measure) + 2 * 16px);
+    margin: 0 auto;
+    padding-left: var(--gutter-l);
+    padding-right: var(--gutter-r);
+  }
+  .label {
+    font: 500 12px/1.4 var(--mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+
+  /* header */
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 22px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font: 800 26px/1 var(--display);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  .brand svg {
+    width: 24px;
+    height: 24px;
+  }
+  .top nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    font-size: 15px;
+  }
+  .top nav a {
+    color: var(--mist);
+    text-decoration: none;
+  }
+  .top nav a:hover {
+    color: var(--ink);
+  }
+
+  /* hero copy */
+  .intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 24px 56px;
+    align-items: end;
+    padding-block: 40px 44px;
+  }
+  h1 {
+    margin: 14px 0 0;
+    font: 800 clamp(56px, 9vw, 112px) / 0.88 var(--display);
+    letter-spacing: -0.005em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--amber);
+  }
+  .pitch {
+    display: grid;
+    gap: 22px;
+    min-width: 0;
+  }
+  .pitch p {
+    margin: 0;
+    max-width: 46ch;
+    color: var(--mist);
+    font-size: 18px;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 22px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+  }
+  .btn svg {
+    width: 18px;
+    height: 18px;
+  }
+  .btn.primary {
+    background: var(--amber);
+    color: var(--amber-ink);
+  }
+  .btn.primary:hover {
+    filter: brightness(1.06);
+  }
+  .btn.quiet {
+    border: 1px solid var(--line);
+  }
+  .btn.quiet:hover {
+    background: rgba(238, 244, 243, 0.06);
+  }
+  .fine {
+    font-size: 14px;
+    color: var(--mist);
+  }
+
+  /* the desktop: wallpaper strip, the window, the wallpaper picker */
+  .desk {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(28px, 5vw, 64px);
+  }
+  .wall {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+    background-size: cover;
+    background-position: center;
+  }
+  .desk[data-wall='beach'] .wall.beach,
+  .desk[data-wall='dusk'] .wall.dusk,
+  .desk[data-wall='aurora'] .wall.aurora {
+    opacity: 1;
+  }
+  .wall.beach {
+    background-image: url('assets/wallpaper.jpg');
+  }
+  .wall.dusk {
+    background: linear-gradient(170deg, #1d1636 0%, #6a2c5f 45%, #d9665b 78%, #f6b26b 100%);
+  }
+  .wall.aurora {
+    background:
+      radial-gradient(60% 70% at 20% 30%, rgba(46, 213, 160, 0.75), transparent 70%),
+      radial-gradient(50% 60% at 80% 20%, rgba(80, 120, 255, 0.7), transparent 70%),
+      radial-gradient(70% 60% at 60% 100%, rgba(150, 70, 220, 0.6), transparent 70%),
+      #071226;
+  }
+  .desk .wrap {
+    position: relative;
+    display: grid;
+    gap: 18px;
+  }
+  .window {
+    width: 100%;
+    max-width: 1100px;
+    justify-self: center;
+  }
+  .picker {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+    width: 100%;
+    max-width: 1100px;
+    justify-self: center;
+    padding: 10px 12px;
+    border-radius: 6px;
+    background: rgba(10, 16, 19, 0.72);
+    backdrop-filter: blur(10px);
+  }
+  .picker .choices {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .picker button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px 6px 6px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font: 500 14px/1 var(--body);
+    cursor: pointer;
+  }
+  .picker button[aria-pressed='true'] {
+    border-color: var(--amber);
+  }
+  .swatch {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-size: cover;
+  }
+  .swatch.beach {
+    background-image: url('assets/wallpaper.jpg');
+    background-position: center;
+  }
+  .swatch.dusk {
+    background: linear-gradient(170deg, #6a2c5f, #f6b26b);
+  }
+  .swatch.aurora {
+    background: radial-gradient(circle at 30% 30%, #2ed5a0, #5078ff 60%, #071226);
+  }
+  .picker .state {
+    font: 500 12px/1.4 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+
+  /* sections */
+  section {
+    padding-block: clamp(56px, 8vw, 96px);
+  }
+  h2 {
+    margin: 10px 0 14px;
+    font: 800 clamp(40px, 5.5vw, 64px) / 0.95 var(--display);
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+  .lede {
+    margin: 0;
+    max-width: 58ch;
+    color: var(--mist);
+  }
+
+  /* the light show along one song: the clip, its stretch of the song with a playhead, the three moments */
+  .show {
+    position: relative;
+    margin-top: 40px;
+  }
+  .show video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+  }
+  .playpause {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(10, 16, 19, 0.72);
+    color: var(--ink);
+    font: 500 13px/1 var(--body);
+    cursor: pointer;
+  }
+  .song {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px 24px;
+    margin-top: 22px;
+  }
+  .track {
+    position: relative;
+    height: 3px;
+    margin: 14px 0 22px;
+    border-radius: 2px;
+    background: var(--line);
+  }
+  .track .played {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0;
+    border-radius: 2px;
+    background: var(--mist);
+  }
+  .track span {
+    position: absolute;
+    top: 50%;
+    width: 11px;
+    height: 11px;
+    margin: -5.5px 0 0 -5.5px;
+    border-radius: 50%;
+    background: var(--night);
+    border: 2px solid var(--amber);
+  }
+  .moments {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .moments li {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+    opacity: 0.45;
+    transition: opacity 0.3s ease;
+  }
+  .moments li.on {
+    opacity: 1;
+  }
+  .moments .when {
+    font: 500 12px/1.4 var(--mono);
+    letter-spacing: 0.08em;
+    color: var(--amber);
+    font-variant-numeric: tabular-nums;
+  }
+  .moments b {
+    font-weight: 600;
+  }
+  .moments span:last-child {
+    color: var(--mist);
+    font-size: 15px;
+  }
+
+  /* what's in it */
+  .list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 56px;
+    margin: 36px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .list li {
+    display: grid;
+    gap: 2px;
+    padding-block: 18px;
+    border-top: 1px solid var(--line);
+    min-width: 0;
+  }
+  .list b {
+    font-weight: 600;
+  }
+  .list span {
+    color: var(--mist);
+  }
+
+  /* download */
+  .get {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 32px 56px;
+    align-items: start;
+  }
+  .platforms {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .platforms li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 16px;
+    border-top: 1px solid var(--line);
+  }
+  .platforms li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .platforms b {
+    font-weight: 600;
+  }
+  .platforms .ok {
+    color: var(--amber);
+    font: 500 12px/1.4 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .platforms .later {
+    color: var(--mist);
+    font: 500 12px/1.4 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  footer {
+    padding-block: 36px 56px;
+    border-top: 1px solid var(--line);
+    color: var(--mist);
+    font-size: 14px;
+  }
+  footer .wrap {
+    display: grid;
+    gap: 12px;
+  }
+  footer p {
+    margin: 0;
+    max-width: 92ch;
+  }
+  footer nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  @media (max-width: 860px) {
+    .intro,
+    .get,
+    .list {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .moments {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+    }
+    .top nav a.hide-narrow {
+      display: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wall,
+    .moments li {
+      transition: none;
+    }
+  }
+</style>
+</head>
+<body>
+<header class="wrap top">
+  <a class="brand" href="#top" aria-label="Idolize">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="4.5" r="2.5" fill="currentColor" />
+      <path d="M8.5 9.5h7v11h-7z" fill="currentColor" />
+      <path d="M3 14.5c2-1.6 3.6-1.6 5.5 0M15.5 14.5c2-1.6 3.6-1.6 5.5 0" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" />
+    </svg>
+    Idolize
+  </a>
+  <nav>
+    <a class="hide-narrow" href="#light-show">Light show</a>
+    <a class="hide-narrow" href="#download">Download</a>
+    <a href="https://github.com/BreakLime/idolize">GitHub</a>
+  </nav>
+</header>
+
+<main id="top">
+  <div class="wrap intro">
+    <div>
+      <span class="label">Unofficial desktop player for TIDAL</span>
+      <h1>A TIDAL player you can <em>see through</em></h1>
+    </div>
+    <div class="pitch">
+      <p>Idolize lets your wallpaper shine through its window, and gives every song its own light show. Free and open source, for Windows.</p>
+      <div class="actions">
+        <a class="btn primary" href="https://github.com/BreakLime/idolize/releases/latest">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14" /></svg>
+          Download for Windows
+        </a>
+        <a class="btn quiet" href="https://github.com/BreakLime/idolize">Source on GitHub</a>
+      </div>
+      <span class="fine">Windows 10 and 11, 64-bit. macOS and Linux are coming soon.</span>
+    </div>
+  </div>
+
+  <div class="desk" id="desk" data-wall="beach">
+    <div class="wall beach" aria-hidden="true"></div>
+    <div class="wall dusk" aria-hidden="true"></div>
+    <div class="wall aurora" aria-hidden="true"></div>
+    <div class="wrap">
+      <img class="window" src="assets/window.webp" width="2160" height="1350" alt="The Idolize window on its home page, with the wallpaper showing through it" />
+      <div class="picker">
+        <div class="choices" role="group" aria-label="Wallpaper">
+          <button type="button" id="wall-beach" data-wall="beach" aria-pressed="true"><span class="swatch beach"></span>Beach</button>
+          <button type="button" id="wall-dusk" data-wall="dusk" aria-pressed="false"><span class="swatch dusk"></span>Dusk</button>
+          <button type="button" id="wall-aurora" data-wall="aurora" aria-pressed="false"><span class="swatch aurora"></span>Aurora</button>
+        </div>
+        <span class="state">Window transparency: Clear · Tint 75%</span>
+      </div>
+    </div>
+  </div>
+
+  <section id="light-show">
+    <div class="wrap">
+      <span class="label">The player</span>
+      <h2>Every song gets a light show</h2>
+      <p class="lede">Open the player and the album cover becomes an LED wall that follows the song. Idolize reads the song ahead of time, so the big moments land on the beat.</p>
+      <div class="show">
+        <video id="show" autoplay muted loop playsinline preload="auto" poster="assets/stage-poster.jpg" width="1280" height="800" aria-label="The light show over 18 seconds of a song: the build-up, the drop, the peak">
+          <source src="assets/stage.webm" type="video/webm" />
+          <source src="assets/stage.mp4" type="video/mp4" />
+        </video>
+        <button type="button" class="playpause" id="playpause" aria-pressed="false">Pause</button>
+      </div>
+      <div class="song">
+        <span class="label">1:09 – 1:27</span>
+      </div>
+      <div class="track" aria-hidden="true">
+        <i class="played" id="played"></i>
+        <span style="left: 25%"></span>
+        <span style="left: 54.4%"></span>
+        <span style="left: 63.9%"></span>
+      </div>
+      <ol class="moments" id="moments">
+        <li data-at="4.5"><span class="when">1:13</span><b>Build-up</b><span>The wall draws in and it starts to rain.</span></li>
+        <li data-at="9.8"><span class="when">1:19</span><b>Drop</b><span>The album bursts apart.</span></li>
+        <li data-at="11.5"><span class="when">1:20</span><b>Peak</b><span>A kaleidoscope made from the cover, once per song.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <span class="label">What's in it</span>
+      <ul class="list">
+        <li><b>See-through window</b><span>Clear, Acrylic or Mica, with a tint you set.</span></li>
+        <li><b>Transparent player</b><span>Your desktop behind the player, sharp or blurred.</span></li>
+        <li><b>A light show for every song</b><span>The album cover as an LED wall, in sync with the music.</span></li>
+        <li><b>Lyrics and comments</b><span>Synced lyrics and the song's top YouTube comments.</span></li>
+        <li><b>Hi-res lossless</b><span>Up to 24-bit FLAC with your TIDAL subscription.</span></li>
+        <li><b>Free and open source</b><span>MIT license, built in the open on GitHub.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="download">
+    <div class="wrap get">
+      <div>
+        <span class="label">Download</span>
+        <h2>Get Idolize</h2>
+        <p class="lede">Sign in with your own TIDAL account. You need an active subscription.</p>
+        <div class="actions" style="margin-top: 24px">
+          <a class="btn primary" href="https://github.com/BreakLime/idolize/releases/latest">Latest release</a>
+        </div>
+      </div>
+      <ul class="platforms">
+        <li><b>Windows 10 and 11</b><span class="ok">Installer or portable</span></li>
+        <li><b>macOS</b><span class="later">Coming soon</span></li>
+        <li><b>Linux</b><span class="later">Coming soon</span></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <nav>
+      <a href="https://github.com/BreakLime/idolize">GitHub</a>
+      <a href="https://github.com/BreakLime/idolize/releases">Releases</a>
+      <a href="https://github.com/BreakLime/idolize/blob/main/LICENSE">MIT License</a>
+    </nav>
+    <p>Idolize is an independent project. It is not affiliated with, endorsed by or sponsored by TIDAL; "TIDAL" is a trademark of its owner. Idolize doesn't host or provide any music. Using an unofficial client may be against TIDAL's terms of use, so use it at your own risk. The Windows builds aren't code-signed yet, so SmartScreen may warn on the first start.</p>
+  </div>
+</footer>
+
+<script>
+  // the light show: the playhead and the moments follow the clip; it can be paused (and starts paused with reduced motion)
+  (() => {
+    const video = document.getElementById('show');
+    const button = document.getElementById('playpause');
+    const played = document.getElementById('played');
+    const moments = [...document.querySelectorAll('#moments li')];
+    const set = (paused) => {
+      button.textContent = paused ? 'Play' : 'Pause';
+      button.setAttribute('aria-pressed', String(paused));
+    };
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      video.removeAttribute('autoplay');
+      video.pause();
+      set(true);
+    }
+    button.addEventListener('click', () => {
+      if (video.paused) video.play().catch(() => {});
+      else video.pause();
+    });
+    video.addEventListener('play', () => set(false));
+    video.addEventListener('pause', () => set(true));
+    const tick = () => {
+      const t = video.currentTime;
+      if (video.duration) played.style.width = `${(t / video.duration) * 100}%`;
+      let current = -1;
+      moments.forEach((m, i) => {
+        if (t >= Number(m.dataset.at)) current = i;
+      });
+      // (paused before the first moment: all of them readable)
+      const all = video.paused && current < 0;
+      moments.forEach((m, i) => m.classList.toggle('on', all || i === current));
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  })();
+
+  // the wallpaper behind the window
+  (() => {
+    const desk = document.getElementById('desk');
+    const buttons = desk.querySelectorAll('.picker button');
+    for (const b of buttons) {
+      b.addEventListener('click', () => {
+        desk.dataset.wall = b.dataset.wall;
+        for (const o of buttons) o.setAttribute('aria-pressed', String(o === b));
+      });
+    }
+  })();
+</script>
+</body>
+</html>

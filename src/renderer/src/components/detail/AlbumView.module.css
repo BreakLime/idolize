@@ -1,0 +1,62 @@
+.page {
+  position: relative;
+}
+.creditsHeader {
+  margin: 0;
+  padding: 0 76px;
+}
+.module {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  margin: 0 20px 48px;
+  padding: 0 28px;
+}
+.tableLoading {
+  height: 612px;
+}
+/* artwork hover: "Credits" overlay */
+.coverCredits {
+  position: absolute;
+  inset: 0;
+  display: block;
+  color: var(--c-text);
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+.coverCredits:hover {
+  opacity: 1;
+}
+.coverCreditsInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 100%;
+  font-size: 14px;
+  font-weight: 600;
+}
+/* release date / count / copyright under the table */
+.footer {
+  height: 32px;
+  margin: 24px 14px 48px;
+}
+.footerLine {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+  align-items: center;
+  gap: 8px;
+  height: 12px;
+}
+.footerText {
+  color: var(--c-text-muted);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}

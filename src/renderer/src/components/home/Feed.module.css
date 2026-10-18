@@ -1,0 +1,178 @@
+/* Feed page (/feed) — measured from TIDAL 2.43.2. The page box comes from pageModules.module.css. */
+.feed {
+  align-items: start;
+}
+.section {
+  width: 100%;
+  margin: 8px 0;
+}
+.sectionHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 16px 0;
+  background: var(--app-bg);
+}
+.sectionHeader h2 {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+}
+.item {
+  padding: 8px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.item:hover,
+.item:focus-within {
+  background: rgba(255, 255, 255, 0.15);
+}
+.item:focus-visible {
+  outline: none;
+}
+.cell {
+  display: grid;
+  grid-template-columns: auto 1fr 48px;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+.cover {
+  position: relative;
+  display: block;
+  width: 48px;
+  height: 48px;
+}
+.coverImg {
+  display: block;
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: rgb(36, 36, 41);
+}
+.coverImg img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  object-fit: cover;
+}
+.coverHover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: opacity 0.1s, transform 0.1s;
+}
+.cover:hover .coverHover,
+.coverOn {
+  opacity: 1;
+}
+.play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: #000;
+}
+.play svg {
+  color: #fff;
+}
+.text {
+  display: grid;
+  grid-auto-flow: row;
+  min-width: 0;
+}
+.textRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.titleLink {
+  display: block;
+  min-width: 0;
+}
+.title {
+  display: block;
+  margin-right: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.titleLink:hover .title {
+  text-decoration: underline;
+}
+.sub {
+  display: block;
+  min-width: 0;
+  color: rgb(175, 175, 182);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.artist:not(:last-child)::after {
+  content: ',';
+  margin-right: 0.5ch;
+}
+.artist:hover {
+  text-decoration: underline;
+}
+.buttons {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: end;
+  align-items: center;
+  gap: 16px;
+}
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: rgb(175, 175, 182);
+  opacity: 0;
+  transition: color 0.15s;
+}
+.menu:hover {
+  color: #fff;
+}
+.item:hover .menu,
+.item:focus-within .menu {
+  opacity: 1;
+}
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 120px 0;
+  color: var(--c-text-2);
+  text-align: center;
+}
+.emptyIcon {
+  display: flex;
+  margin-bottom: 8px;
+  color: var(--c-text-3);
+}
+.emptyTitle {
+  color: var(--c-text);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}

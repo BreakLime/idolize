@@ -1,0 +1,338 @@
+/* Header module: 1214px wide at 1494px (20px margin + 28px padding), 360px tall, 48px below. */
+.module {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  height: 360px;
+  margin: 0 20px 48px;
+  padding: 0 28px;
+}
+.wideOuter {
+  position: relative;
+}
+.wide {
+  margin: 0 0 40px;
+  padding: 0 48px;
+}
+/* cover backdrop: from the top of the main area (behind the floating header), 450px tall */
+.backdrop {
+  position: absolute;
+  top: calc(-1 * var(--header-h));
+  left: -20px;
+  right: -20px;
+  height: 450px;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+.wide .backdrop {
+  left: 0;
+  right: 0;
+}
+.backdrop::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.6) 0, var(--app-bg) 100%), var(--bd) center / cover no-repeat;
+}
+.backdropBlur {
+  overflow: visible;
+}
+/* window transparency: the cover fades out into the glass instead of ending in a hard edge */
+:root[data-transparent='true'] .backdrop {
+  mask-image: linear-gradient(#000 0%, #000 45%, transparent 100%);
+}
+.backdropBlur::before {
+  background: linear-gradient(rgba(0, 0, 0, 0.4) 0, var(--app-bg) 100%), var(--bd) 0 0 / cover no-repeat;
+  filter: blur(50px);
+}
+.inner {
+  position: relative;
+  z-index: 1;
+}
+.top {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  height: 240px;
+  margin-top: 24px;
+}
+.art {
+  position: relative;
+  flex: none;
+  width: 240px;
+  height: 240px;
+  border-radius: 2px;
+}
+.cover {
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+}
+.text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.title {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: -0.32px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  user-select: text;
+}
+.subtitle {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  color: var(--c-text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.description {
+  display: -webkit-box;
+  margin-top: 28px;
+  overflow: hidden;
+  color: var(--c-text-muted);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  user-select: text;
+}
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+.metaLine {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.metaText {
+  display: block;
+  color: var(--c-text-80);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.metaMuted {
+  color: var(--c-text-muted);
+}
+.controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px 40px;
+  margin-top: 48px;
+}
+.primary {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  max-width: calc(2 * 160px + 16px);
+}
+.primary > button {
+  flex: 0 0 auto;
+  width: 50%;
+  min-width: 48px;
+  max-width: 160px;
+}
+.actions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 8px;
+  height: 48px;
+}
+.actions > button {
+  flex-shrink: 0;
+}
+
+/* small header: fixed bar under the window chrome */
+.sticky {
+  position: fixed;
+  top: var(--titlebar-h);
+  left: var(--sidebar-w);
+  right: 0;
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 80px 4% 24px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(20px) saturate(1.8);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out, z-index 0s 0.2s;
+}
+/* playlist bar: block container around a flex row (TIDAL's playlist small header) */
+.stickyBlock {
+  display: block;
+}
+.stickyBar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.stickyOn {
+  z-index: calc(var(--z-header) - 1);
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+/* acrylic/mica: backdrop-filter has nothing to blur against the window glass, so 55% black would let the
+   rows scrolled under the bar show through sharply; keep it near-opaque there */
+:root[data-transparent='true'] .sticky {
+  background: rgba(0, 0, 0, 0.97);
+}
+:global(.sidebar-collapsed) .sticky {
+  left: var(--sidebar-w-collapsed);
+}
+.stickyArt {
+  flex: none;
+  border-radius: 2px;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+}
+.stickyText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  overflow: hidden;
+}
+.stickyTitle {
+  padding-right: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+.stickySub {
+  display: flex;
+  align-items: center;
+  min-height: 20px;
+  color: var(--c-text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+}
+.stickyControls {
+  display: flex;
+  flex: 1 1 0;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 8px;
+  min-width: 80px;
+  height: 48px;
+  overflow: hidden;
+}
+.stickyControls > button {
+  flex-shrink: 0;
+}
+/* the overflow group hides its buttons entirely once it is squeezed below one button */
+.stickyControls > div {
+  container-type: inline-size;
+}
+@container (width <= 79px) {
+  .stickyControls > div > button {
+    display: none;
+  }
+}
+
+/* responsive steps (viewport widths, as TIDAL) */
+@media (max-width: 992px) {
+  .title:not(.staticTitle) {
+    font-size: 20px;
+    line-height: 24px;
+  }
+}
+@media (max-width: 768px) {
+  .title:not(.staticTitle) {
+    -webkit-line-clamp: 1;
+  }
+  .module {
+    height: 312px;
+  }
+  .top {
+    height: 192px;
+  }
+  .meta {
+    margin-top: 16px;
+  }
+  .top .art,
+  .top .art > figure {
+    width: 192px !important;
+    height: 192px !important;
+  }
+  .primary > button {
+    width: auto;
+  }
+  .primary > button > span:nth-child(2) {
+    display: none;
+  }
+  .wide .top {
+    margin-top: 32px;
+  }
+}
+/* playlist header: steps on its own width (the 48px-padded container), not the viewport */
+.wide {
+  height: auto;
+}
+/* TIDAL: album/track Play+Shuffle shrink with the actions (134px at 900), a playlist's keep 160px and its
+   secondary actions overflow instead */
+.wide .primary {
+  flex-shrink: 0;
+}
+.wide .inner {
+  container-type: inline-size;
+}
+/* above the container step the playlist keeps labelled buttons */
+@media (max-width: 768px) {
+  .wide .primary > button {
+    width: 50%;
+  }
+  .wide .primary > button > span:nth-child(2) {
+    display: inline;
+  }
+}
+@container (width <= 480px) {
+  .wide .top {
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+  }
+  /* the text column shrinks to its content and is centred: without a description the creator line starts at
+     the title's left edge ("me (+)"), with a long one the column is full width and the line sits far left */
+  .wide .text {
+    align-items: center;
+    align-self: center;
+    max-width: 100%;
+  }
+  .wide .primary {
+    flex-shrink: 1;
+  }
+  /* creator line and description stay left-aligned within the column (as TIDAL) */
+  .wide .subtitle,
+  .wide .description {
+    align-self: stretch;
+  }
+  .wide .primary > button {
+    width: auto;
+  }
+  .wide .primary > button > span:nth-child(2) {
+    display: none;
+  }
+}

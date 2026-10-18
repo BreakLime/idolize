@@ -1,0 +1,107 @@
+.pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 8px;
+  width: 160px;
+  height: 48px;
+  padding: 12px 20px;
+  border-radius: var(--r-pill);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  white-space: nowrap;
+  transition: background-color 0.2s, color 0.2s, transform 0.1s;
+}
+.pill:active {
+  transform: scale(0.98);
+}
+.pill:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.primary {
+  color: rgb(16, 16, 16);
+  background: var(--c-text);
+}
+.primary:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.35);
+}
+.secondary {
+  color: var(--c-text);
+  background: var(--c-fill-08);
+  backdrop-filter: blur(20px);
+}
+.secondary:hover:not(:disabled) {
+  background: var(--c-fill-15);
+}
+.pillIcon {
+  display: flex;
+  width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+}
+.action {
+  flex: none;
+  width: 80px;
+  height: 48px;
+  color: var(--c-text);
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+.action:hover {
+  opacity: 0.7;
+}
+.actionInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.actionLabel {
+  margin-top: 8.5px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  white-space: nowrap;
+}
+.actionActive {
+  color: var(--c-text);
+}
+.iconBtn {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-text-strong-2);
+  border-radius: var(--r-pill);
+  transition: color 0.15s;
+}
+.iconBtn:hover {
+  color: var(--c-text);
+}
+/* the button itself stays transparent (as in TIDAL); the white disc is an inner layer */
+.playCircle {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+}
+.playDisc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--c-text);
+  box-shadow: 0 2.2px 5.5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.15s;
+}
+.playCircle:hover .playDisc {
+  transform: scale(1.06);
+}

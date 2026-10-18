@@ -1,0 +1,42 @@
+.bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: calc(var(--player-h) + 8px);
+  z-index: calc(var(--z-header) + 1);
+  width: 10px;
+  padding: 2px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s, visibility 0.15s;
+}
+/* keep the hover target alive while hidden so pointing at the edge reveals it */
+.bar:not(.unusable) {
+  visibility: visible;
+}
+.visible {
+  opacity: 1;
+}
+.track {
+  position: relative;
+  width: 6px;
+  height: 100%;
+}
+.handle {
+  position: absolute;
+  left: 0;
+  width: 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.35);
+  transition: background-color 0.15s, width 0.15s;
+  cursor: default;
+}
+.handle:hover,
+.active {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+/* window transparency: the page ends above the player bar */
+:root[data-transparent='true'] .bar {
+  bottom: 8px;
+}

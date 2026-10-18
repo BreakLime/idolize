@@ -1,0 +1,79 @@
+.artistLine {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: auto minmax(0, auto);
+  align-items: center;
+  gap: 4px;
+  min-height: 22px;
+  color: var(--c-text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.avatars {
+  display: flex;
+  margin-right: 4px;
+}
+.avatar {
+  border: 0;
+}
+.avatar + .avatar {
+  margin-left: -9px;
+}
+/* TIDAL: the names wrap between artists as the header column narrows (one per line at 700px) and a name
+   that still doesn't fit is clipped; the compact bar's small variant stays one line with an ellipsis */
+.names {
+  display: flow-root;
+  overflow: hidden;
+}
+.artistLink {
+  color: rgba(255, 255, 255, 0.8);
+  white-space: nowrap;
+}
+.artistLink:not(:last-child)::after {
+  content: ',';
+}
+.small .artistLink {
+  color: var(--c-text-muted);
+}
+.tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 8px;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 12px;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+}
+.max {
+  color: var(--c-max);
+  background: var(--c-max-bg);
+}
+.high {
+  color: rgb(51, 255, 238);
+  background: rgba(33, 254, 236, 0.1);
+}
+.dimIcon svg {
+  color: rgba(255, 255, 255, 0.8);
+}
+.natural {
+  height: auto;
+}
+/* TIDAL's "overflow buttons": actions that don't fit wrap onto a second row, which the 48px height clips */
+.group {
+  display: flex;
+  flex: 1 1 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  min-width: 0;
+  height: 48px;
+  overflow: hidden;
+}
+.group > button {
+  flex-shrink: 0;
+}

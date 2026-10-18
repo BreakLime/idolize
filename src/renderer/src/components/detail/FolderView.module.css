@@ -1,0 +1,131 @@
+.page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 32px 1fr;
+  align-items: start;
+  min-height: calc(100vh - 181.6px);
+  margin: 24px 48px 48px;
+}
+.titleRow {
+  display: flex;
+  align-items: center;
+}
+.title {
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 32px;
+  white-space: nowrap;
+}
+.titleActions {
+  flex: 1;
+  margin-left: 16px;
+}
+.more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.more:hover {
+  color: var(--c-text);
+}
+.content {
+  min-width: 0;
+}
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.empty svg {
+  color: var(--c-text);
+}
+.emptyText {
+  margin-top: 24px;
+  color: var(--c-text-2);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+}
+.emptyButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  margin-top: 20px;
+  padding: 0 24px;
+  border-radius: 12px;
+  color: var(--c-text);
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 49px;
+  white-space: nowrap;
+}
+.emptyButton:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+.filter {
+  display: flex;
+  align-items: center;
+  height: 41.33px;
+  margin: 32px 0 36px;
+  padding: 0 12px;
+  border: 0.667px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+.filter:focus-within {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.filterInput {
+  flex: 1 1 auto;
+  height: 40px;
+  margin: 0 12px;
+  padding: 0 0 0 4px;
+  color: var(--c-text);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  background: none;
+  border: 0;
+  outline: none;
+}
+.filterInput::placeholder {
+  color: var(--c-text-2);
+}
+.grid {
+  display: grid;
+  gap: 16px;
+}
+.gridCell {
+  min-width: 0;
+  overflow: hidden;
+  aspect-ratio: 25 / 36;
+}
+.folderCell {
+  cursor: pointer;
+}
+.folderArt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  border-radius: 3px;
+  color: var(--c-text-2);
+  background: var(--c-surface-3);
+}
+.folderCell:hover .folderArt {
+  background: var(--c-surface-4);
+}
+.folderName {
+  margin-top: 14px;
+  font-weight: 600;
+}
+.folderSub {
+  color: var(--c-text-muted);
+  font-weight: 600;
+}

@@ -1,0 +1,373 @@
+.fill {
+  flex: 1 1 0%;
+}
+.creditsScroll {
+  flex: 0 1 auto;
+}
+.fadeEdges {
+  mask-image: linear-gradient(rgba(255, 255, 255, 0) 0, #fff 24px, #fff calc(100% - 48px), rgba(255, 255, 255, 0) 100%);
+}
+.fadeBottom {
+  mask-image: linear-gradient(#fff 0, #fff calc(100% - 64px), rgba(255, 255, 255, 0) 100%);
+}
+.muted {
+  color: var(--c-text-2);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+/* credits */
+.creditsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding-bottom: 13.3px;
+  overflow: hidden;
+}
+.creditsList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0 16px 48px 8px;
+}
+.creditGroup {
+  display: flex;
+  flex-direction: column;
+}
+.creditTitle {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  color: var(--c-text);
+}
+.creditValue {
+  color: var(--c-text-2);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  user-select: text;
+}
+
+/* similar tracks */
+.similarContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-bottom: 13.3px;
+  overflow: hidden;
+}
+.radioSection {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding: 0 16px 0 8px;
+}
+.sectionHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 26px;
+}
+.headerText {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 26px;
+}
+.cardRow {
+  display: flex;
+  gap: 16px;
+  margin: 0 -6px -6px;
+  padding: 16px 6px 6px;
+}
+.card {
+  flex: none;
+  width: calc((100% - 48px) / 4);
+}
+.cardInner {
+  display: flex;
+  flex-direction: column;
+}
+.cardImage {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.cardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--c-surface-3);
+}
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.cardImage:hover .cardOverlay,
+.forceShow {
+  opacity: 1;
+}
+.cardPlay {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+}
+.cardFav {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #000;
+  color: var(--c-text);
+}
+.cardText {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+}
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+}
+.cardSub {
+  overflow: hidden;
+  color: var(--c-text-2);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.tracksSection {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 16px 0 8px;
+}
+.sectionTitle {
+  flex: none;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+.trackList {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 48px;
+}
+.trackRow {
+  height: 56px;
+  margin-bottom: 8px;
+}
+.trackRow:last-child {
+  margin-bottom: 0;
+}
+.trackItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 56px;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.trackImage {
+  position: relative;
+  flex: none;
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.trackImage img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  background: var(--c-surface-3);
+}
+.trackOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.trackOverlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0.5;
+}
+.trackItem:hover .trackOverlay {
+  opacity: 1;
+}
+.trackPlay {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--c-text);
+}
+.trackText {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  height: 44px;
+  overflow: hidden;
+}
+.trackTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 22px;
+  min-width: 0;
+}
+.trackTitle {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.current {
+  color: var(--c-active);
+}
+.badges {
+  display: flex;
+  flex: none;
+  gap: 4px;
+  align-items: center;
+}
+.badges > i {
+  margin-left: 3px;
+}
+.trackArtists {
+  overflow: hidden;
+  color: var(--c-text-2);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.trackButtons {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+  margin: 0 8px 0 auto;
+}
+.rowBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--c-text-3);
+  transition: color 0.15s;
+}
+.rowBtn:hover {
+  color: var(--c-text);
+}
+
+/* lyrics */
+.lyricsContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-bottom: 13.3px;
+  overflow: hidden;
+}
+.lyricsScroll {
+  padding: 0 16px 0 8px;
+}
+.lyrics {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 40vh 0 40vh;
+}
+.lyrics:not(.timed) {
+  padding: 24px 0 64px;
+}
+.line {
+  display: block;
+  padding: 6px 0;
+  color: rgba(255, 255, 255, 0.35);
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 36px;
+  letter-spacing: -0.28px;
+  text-align: left;
+  transition:
+    color 0.3s,
+    transform 0.3s var(--ease-out);
+  transform-origin: 0 50%;
+}
+.line:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+.linePast {
+  color: rgba(255, 255, 255, 0.5);
+}
+.lineActive,
+.lineActive:hover {
+  color: var(--c-text);
+}
+.plainLine {
+  min-height: 30px;
+  color: var(--c-text);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 30px;
+  user-select: text;
+}
+.provider {
+  margin-top: 32px;
+  color: var(--c-text-2);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+}
+.lyricsEmpty {
+  margin: auto 0;
+  padding: 48px 0;
+  color: var(--c-text-2);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}

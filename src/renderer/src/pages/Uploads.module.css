@@ -1,0 +1,58 @@
+/* TIDAL's /your-uploads frame: 48px title row at 48px/16px, 27px bold title, empty-state card centered below */
+.page {
+  padding: 16px 48px 32px;
+}
+.titleRow {
+  display: flex;
+  align-items: center;
+  height: 48px;
+}
+.title {
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 32px;
+}
+.body {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 0;
+}
+.empty {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 64px;
+}
+.art {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle at 50% 50%, #3a3a3d 0, #2a2a2c 64%, #1f1f21 66%) center / 100% 100% no-repeat;
+}
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 364px;
+}
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.heading {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+.muted {
+  color: rgb(120, 120, 135);
+}

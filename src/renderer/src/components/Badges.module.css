@@ -1,0 +1,94 @@
+.explicit {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: rgb(20, 20, 20);
+  color: var(--c-text-3);
+  font-style: normal;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: var(--c-fill-10);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+.max {
+  color: var(--c-max);
+  background: var(--c-max-bg);
+}
+.quality {
+  --q: 22, 216, 167;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 121px;
+  height: 40px;
+  padding: 0 16px;
+  overflow: hidden;
+  border: 1.333px solid #000;
+  border-radius: var(--r-pill);
+  /* the dark fill is an image layer (TIDAL's badge has no background-color) */
+  background-image: radial-gradient(at 0 0, rgba(120, 120, 120, 0.2) 0%, rgba(90, 90, 90, 0.15) 12%, rgba(60, 60, 60, 0.1) 24%, rgba(30, 30, 30, 0.05) 36%, transparent 48%),
+    linear-gradient(rgb(16, 16, 16), rgb(16, 16, 16));
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  flex: none;
+}
+.hires {
+  --q: 255, 191, 0;
+}
+.lossy {
+  --q: 175, 175, 182;
+}
+.glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(at 50% 100%, rgba(var(--q), 0.2) 0%, transparent 60%);
+  transition: opacity 0.3s;
+}
+.qualityText {
+  position: relative;
+  z-index: 1;
+  color: rgb(var(--q));
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  white-space: nowrap;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+.quality:hover .qualityText {
+  text-shadow: 0 0 8px rgba(var(--q), 0.6);
+}
+.line {
+  position: absolute;
+  top: 0;
+  left: 12px;
+  right: 12px;
+  height: 4px;
+  border-radius: 64px;
+  background: rgba(var(--q), 0.28);
+  transform: translateY(-2px);
+}
+.uploaded {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-left: 3px;
+  color: var(--c-text);
+  font-style: normal;
+}

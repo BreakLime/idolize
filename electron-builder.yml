@@ -1,0 +1,28 @@
+appId: com.breaklime.idolize
+productName: Idolize
+copyright: Copyright © 2026 BreakLime
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - out/**
+  - resources/icon.png
+  - package.json
+asar: true
+# koffi (the only runtime dependency) ships a Node-API binary: nothing to rebuild for Electron
+npmRebuild: false
+win:
+  icon: resources/icon.png
+  target:
+    - target: nsis
+      arch: [x64]
+    - target: portable
+      arch: [x64]
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  shortcutName: Idolize
+portable:
+  artifactName: Idolize-${version}-portable.exe

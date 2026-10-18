@@ -1,0 +1,51 @@
+# Checks and builds Idolize on every push and pull request; a version tag (v1.2.3) also publishes a release with the
+# Windows installer and portable exe. The end-to-end tests need a signed-in TIDAL account, so they run locally only.
+name: Build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+    # (the landing page has a workflow of its own)
+    paths-ignore: ['site/**', '.github/workflows/pages.yml']
+  pull_request:
+    paths-ignore: ['site/**', '.github/workflows/pages.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npx electron-vite build
+      - name: Package
+        run: npx electron-builder --win --publish never
+        env:
+          # no code-signing certificate yet
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+      - uses: actions/upload-artifact@v7
+        with:
+          name: idolize-windows
+          path: |
+            dist/Idolize Setup *.exe
+            dist/Idolize-*-portable.exe
+          if-no-files-found: error
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          gh release create "$GITHUB_REF_NAME" "dist/Idolize Setup $version.exe" "dist/Idolize-$version-portable.exe" \
+            --title "Idolize $version" --notes-file .github/release-notes.md

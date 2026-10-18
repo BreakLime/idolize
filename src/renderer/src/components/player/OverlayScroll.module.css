@@ -1,0 +1,43 @@
+.outer {
+  position: relative;
+  display: flex;
+  min-height: 0;
+  overflow: hidden;
+}
+.inner {
+  position: relative;
+  z-index: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+.inner::-webkit-scrollbar {
+  display: none;
+}
+.track {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 10px;
+  padding: 2px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.outer:hover > .track,
+.active {
+  opacity: 1;
+}
+.thumb {
+  width: 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: default;
+  transition: background-color 0.15s;
+}
+.thumb:hover,
+.thumb:active {
+  background: rgba(255, 255, 255, 0.55);
+}

@@ -1,0 +1,57 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.body {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+/* sidebar and main run full height; the player bar overlays their bottom like TIDAL */
+.body > :last-child {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.content {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+.main {
+  position: absolute;
+  inset: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: var(--header-h) 0 calc(var(--player-h) + 32px);
+  background: var(--app-bg);
+  /* TIDAL's scrollbar overlays the content: hide the native one (OverlayScrollbar draws it) */
+  scrollbar-width: none;
+}
+.main::-webkit-scrollbar {
+  display: none;
+}
+:root[data-transparent='true'] .main {
+  padding-bottom: 32px;
+  background: transparent;
+}
+/* window transparency: pages and the sidebar end above the player bar, whose glass is as light as the sidebar's
+   (rows scrolled under it would show through) */
+:root[data-transparent='true'] .body {
+  padding-bottom: var(--player-h);
+}
+/* Now Playing over the desktop (player background Transparent / Acrylic): the app underneath fades out as the view
+   comes in (the sidebar does the same, Sidebar.module.css) */
+.content {
+  transition: opacity 0.4s var(--ease-out);
+}
+:root[data-np-glass='true'] .content {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.4s var(--ease-out),
+    visibility 0s 0.4s;
+}
